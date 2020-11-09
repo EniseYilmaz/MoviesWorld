@@ -27,9 +27,9 @@ namespace SubProject
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //For name_basics talbe
+            //For title_basics talbe
             modelBuilder.Entity<TitleBasics>().ToTable("title_basics");
-            modelBuilder.Entity<TitleBasics>().Property(x => x.Id).HasColumnName("tconst");
+            modelBuilder.Entity<TitleBasics>().Property(x => x.Id).HasColumnName("tconst").HasColumnType("varchar");
             modelBuilder.Entity<TitleBasics>().Property(x => x.TitleType).HasColumnName("titletype");
             modelBuilder.Entity<TitleBasics>().Property(x => x.PrimaryTitle).HasColumnName("primarytitle");
             modelBuilder.Entity<TitleBasics>().Property(x => x.OriginalTitle).HasColumnName("originaltitle");
