@@ -4,6 +4,6 @@ namespace SubProject.DataServices
 {
     public interface ITitleBasicsDS
     {
-        IList<TitleBasics> GetTitleBasics();
+        IList<TitleBasics> GetTitleBasics (int page, int pagesize);
     }
 }
