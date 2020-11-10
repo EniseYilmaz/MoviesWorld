@@ -1,7 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Logging;
+using Npgsql;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Scaffolding.Internal;
+using SubProject.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,6 +31,23 @@ namespace SubProject
             optionsBuilder.UseNpgsql(_connectionString);
         }
 
+        public IList<StringSearch> Search(string keyword)
+        {
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "string_search";
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("s", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = keyword });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+                var res = command.ExecuteReader();
+                //Got data in res.
+                return (IList<StringSearch>)res;
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //For title_basics talbe
@@ -38,6 +61,8 @@ namespace SubProject
             modelBuilder.Entity<TitleBasics>().Property(x => x.EndYear).HasColumnName("endyear");
             modelBuilder.Entity<TitleBasics>().Property(x => x.RuntimeMinutes).HasColumnName("runtimeminutes");
             modelBuilder.Entity<TitleBasics>().Property(x => x.Genres).HasColumnName("genres");
+
+            //for string_search function
 
             //Need to be done more corection for other tables
         }

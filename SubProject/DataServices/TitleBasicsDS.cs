@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SubProject.Models;
 
 namespace SubProject.DataServices
 {
@@ -11,7 +12,6 @@ namespace SubProject.DataServices
         public IList<TitleBasics> GetTitleBasics()
         {
             using var ctx = new MoviesContext("host=localhost;db=rawlocal;uid=postgres;pwd=Pass2020");
-            Console.WriteLine(ctx);
             return ctx.titleBasics.ToList();
         }
     }
