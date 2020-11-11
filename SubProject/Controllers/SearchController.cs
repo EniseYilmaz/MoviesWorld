@@ -11,32 +11,39 @@ namespace SubProject.Controllers
     [Route("api/search")]
     public class SearchController : ControllerBase
     {
-        
-            ISearchDS ds;
 
-            public SearchController(ISearchDS dataservice)
-            {
-                ds = dataservice;
-            }
+        ISearchDS ds;
 
-            [HttpGet("{keyword}")]
-            public IActionResult SimpleSearch(string keyword)
-            {
-                var data = ds.Search(keyword);
-                return Ok(data);
-            }
+        public SearchController(ISearchDS dataservice)
+        {
+            ds = dataservice;
+        }
 
-            [HttpGet("{firstKeyword}/{secondKeyword}")]
-            public IActionResult ExactSearch(string firstKeyword, string secondKeyword)
-            {
-                var data = ds.ExactSearch(firstKeyword, secondKeyword);
-                return Ok(data);
-            }
+        [HttpGet("{keyword}")]
+        public IActionResult SimpleSearch(string keyword)
+        {
+            var data = ds.Search(keyword);
+            return Ok(data);
+        }
 
-            [HttpGet("{firstKeyword}/{secondKeyword}/{thirdKeyword}")]
-            public IActionResult BestSearch(string firstKeyword, string secondKeyword, string thirdKeyword)
+        [HttpGet("{firstKeyword}/{secondKeyword}")]
+        public IActionResult ExactSearch(string firstKeyword, string secondKeyword)
+        {
+            var data = ds.ExactSearch(firstKeyword, secondKeyword);
+            return Ok(data);
+        }
+
+        [HttpGet("{firstKeyword}/{secondKeyword}/{thirdKeyword}")]
+        public IActionResult BestSearch(string firstKeyword, string secondKeyword, string thirdKeyword)
+        {
+            var data = ds.BestSearch(firstKeyword, secondKeyword, thirdKeyword);
+            return Ok(data);
+        }
+
+        [HttpGet("history/{userName}")]
+        public IActionResult SearchHistory(string userName)
             {
-                var data = ds.BestSearch(firstKeyword, secondKeyword, thirdKeyword);
+                var data = ds.SearchHistory(userName);
                 return Ok(data);
             }
     }

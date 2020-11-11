@@ -10,5 +10,7 @@ namespace SubProject.DataServices
         IList<StringSearch> ExactSearch(string firstKeyword, string secondKeyword);
 
         IList<BestSearch> BestSearch(string firstKeyword, string secondKeyword, string thirdKeyword);
+
+        IList<SearchHistory> SearchHistory(string userName);
     }
 }

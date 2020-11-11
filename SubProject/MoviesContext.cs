@@ -25,6 +25,8 @@ namespace SubProject
         public static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
         public DbSet<TitleBasics> titleBasics { get; set; }
 
+        public DbSet<SearchHistory> searchHistories { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLoggerFactory(loggerFactory);
@@ -145,7 +147,7 @@ namespace SubProject
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //For title_basics talbe
+            //For title_basics table
             modelBuilder.Entity<TitleBasics>().ToTable("title_basics");
             modelBuilder.Entity<TitleBasics>().Property(x => x.Id).HasColumnName("tconst").HasColumnType("varchar");
             modelBuilder.Entity<TitleBasics>().Property(x => x.TitleType).HasColumnName("titletype");
@@ -157,7 +159,12 @@ namespace SubProject
             modelBuilder.Entity<TitleBasics>().Property(x => x.RuntimeMinutes).HasColumnName("runtimeminutes");
             modelBuilder.Entity<TitleBasics>().Property(x => x.Genres).HasColumnName("genres");
 
-            //for string_search function
+            //for search_history table
+            modelBuilder.Entity<SearchHistory>().ToTable("search_history");
+            modelBuilder.Entity<SearchHistory>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<SearchHistory>().Property(x => x.UserName).HasColumnName("username");
+            modelBuilder.Entity<SearchHistory>().Property(x => x.Keywords).HasColumnName("string_search");
+            modelBuilder.Entity<SearchHistory>().Property(x => x.SearchNumber).HasColumnName("search_number");
 
             //Need to be done more corection for other tables
         }

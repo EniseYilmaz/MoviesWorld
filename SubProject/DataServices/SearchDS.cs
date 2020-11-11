@@ -3,6 +3,7 @@ using SubProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace SubProject.DataServices
@@ -25,6 +26,11 @@ namespace SubProject.DataServices
         {
             using var ctx = new MoviesContext("host=localhost;db=rawlocal;uid=postgres;pwd=Pass2020");
             return ctx.BestSearch(firstKeyword, secondKeyword, thirdKeyword);
+        }
+        public IList<SearchHistory>  SearchHistory(string userName)
+        {
+            using var ctx = new MoviesContext("host=localhost;db=rawlocal;uid=postgres;pwd=Pass2020");
+            return ctx.searchHistories.Where(s => s.UserName == userName).ToList();
         }
     }
 }
