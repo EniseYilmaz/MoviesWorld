@@ -24,7 +24,6 @@ namespace SubProject
 
         public static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
         public DbSet<TitleBasics> titleBasics { get; set; }
-
         public DbSet<SearchHistory> searchHistories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -145,6 +144,80 @@ namespace SubProject
             }
         }
 
+        //For the similar_movies
+        public IList<SimilarMovies> SimilarMovies(string movieTitle)
+        {
+            var similarMovies = new List<SimilarMovies>();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "similar_movies";
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("movietitle", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = movieTitle });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var Id = Convert.ToString(reader["id"]);
+                        var Title = Convert.ToString(reader["title"]);
+                        var Genres = Convert.ToString(reader["genres"]);
+                        var StartYear = Convert.ToString(reader["startyear"]);
+
+                        similarMovies.Add(new SimilarMovies()
+                        {
+                            Id = Id,
+                            Title = Title,
+                            Genres = Genres,
+                            StartYear = StartYear
+                        });
+                    }
+                }
+
+                return similarMovies;
+            }
+        }
+
+        //For the popular actors
+        public IList<PopularActors> PopularActors()
+        {
+            var actors = new List<PopularActors>();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "show_popular_actors";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var Id = Convert.ToString(reader["id"]);
+                        var Name = Convert.ToString(reader["name"]);
+                        float Rating = Convert.ToInt32(reader["rating"]);
+                        int NumVotes = Convert.ToInt32(reader["numvotes"]);
+
+                        actors.Add(new PopularActors()
+                        {
+                            Id = Id,
+                            Name = Name,
+                            Rating = Rating,
+                            NumOfVotes = NumVotes
+                        });
+                    }
+                }
+
+                return actors;
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //For title_basics table
@@ -166,7 +239,7 @@ namespace SubProject
             modelBuilder.Entity<SearchHistory>().Property(x => x.Keywords).HasColumnName("string_search");
             modelBuilder.Entity<SearchHistory>().Property(x => x.SearchNumber).HasColumnName("search_number");
 
-            //Need to be done more corection for other tables
+            
         }
     }
 }

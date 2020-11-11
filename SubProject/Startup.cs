@@ -20,6 +20,8 @@ namespace SubProject
             services.AddControllers();
             services.AddSingleton<ITitleBasicsDS, TitleBasicsDS>();
             services.AddSingleton<ISearchDS, SearchDS>();
+            services.AddSingleton<IMoviesDS, MoviesDS>();
+            services.AddSingleton<IActorDS, ActorDS>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
