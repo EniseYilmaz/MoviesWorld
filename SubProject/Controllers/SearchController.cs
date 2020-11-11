@@ -19,12 +19,25 @@ namespace SubProject.Controllers
                 ds = dataservice;
             }
 
-            [HttpGet]
-            public IActionResult SimpleSearch()
+            [HttpGet("{keyword}")]
+            public IActionResult SimpleSearch(string keyword)
             {
-                var titlebasics = ds.Search("Red Dead");
+                var data = ds.Search(keyword);
+                return Ok(data);
+            }
 
-                return Ok(titlebasics);
+            [HttpGet("{firstKeyword}/{secondKeyword}")]
+            public IActionResult ExactSearch(string firstKeyword, string secondKeyword)
+            {
+                var data = ds.ExactSearch(firstKeyword, secondKeyword);
+                return Ok(data);
+            }
+
+            [HttpGet("{firstKeyword}/{secondKeyword}/{thirdKeyword}")]
+            public IActionResult BestSearch(string firstKeyword, string secondKeyword, string thirdKeyword)
+            {
+                var data = ds.BestSearch(firstKeyword, secondKeyword, thirdKeyword);
+                return Ok(data);
             }
     }
 }

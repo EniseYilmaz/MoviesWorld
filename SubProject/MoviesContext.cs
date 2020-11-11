@@ -31,8 +31,11 @@ namespace SubProject
             optionsBuilder.UseNpgsql(_connectionString);
         }
 
+        //For the string_search
         public IList<StringSearch> Search(string keyword)
         {
+            var searchResult = new List<StringSearch>();
+
             using (var command = this.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -42,9 +45,101 @@ namespace SubProject
 
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
-                var res = command.ExecuteReader();
-                //Got data in res.
-                return (IList<StringSearch>)res;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var Id = Convert.ToString(reader["id"]);
+                        var Title = Convert.ToString(reader["title"]);
+
+                        searchResult.Add(new StringSearch()
+                        {
+                            Id = Id,
+                            Title = Title
+                        });
+                    }
+                }
+
+                return searchResult;
+            }
+        }
+
+        //For the exact_match
+        public IList<StringSearch> ExactSearch(string firstKeyword, string secondKeyword)
+        {
+            var searchResult = new List<StringSearch>();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "exact_match";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("firstkeyword", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = firstKeyword });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("secondkeyword", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = secondKeyword });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var Id = Convert.ToString(reader["id"]);
+                        var Title = Convert.ToString(reader["title"]);
+
+                        searchResult.Add(new StringSearch()
+                        {
+                            Id = Id,
+                            Title = Title
+                        });
+                    }
+                }
+
+                return searchResult;
+            }
+        }
+
+        //For the bestmatch
+        public IList<BestSearch> BestSearch(string firstKeyword, string secondKeyword, string thirdKeyword)
+        {
+            var searchResult = new List<BestSearch>();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "bestmatch";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("w1", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = firstKeyword });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("w2", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = secondKeyword });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("w3", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = thirdKeyword });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var Id = Convert.ToString(reader["tconst"]);
+                        var Title = Convert.ToString(reader["title"]);
+                        int? Rank = Convert.ToInt32(reader["rank"]);
+
+                        searchResult.Add(new BestSearch()
+                        {
+                            Id = Id,
+                            Rank = (int)Rank,
+                            Title = Title
+                        });
+                    }
+                }
+
+                return searchResult;
             }
         }
 

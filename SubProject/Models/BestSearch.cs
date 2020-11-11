@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace SubProject.Models
 {
-    public class StringSearch
+    public class BestSearch
     {
         public string Id { get; set; }
+
+        public int Rank { get; set; }
         public string Title { get; set; }
     }
 }
