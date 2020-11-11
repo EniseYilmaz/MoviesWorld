@@ -19,11 +19,11 @@ namespace SubProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTitleBasics()
+        public IActionResult GetTitleBasics(int page, int pagesize)
         {
-            var titlebasics = ds.GetTitleBasics();
+            var titlebasics = ds.GetTitleBasics(page, pagesize);
 
-            return Ok(titlebasics);
+            return Ok(titlebasics.ToJson());
         }
     }
 }
