@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Scaffolding.Internal;
@@ -15,21 +16,21 @@ namespace SubProject
 {
     public class MoviesContext : DbContext
     {
-        private readonly string _connectionString;
-
-        public MoviesContext(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
-
         public static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
         public DbSet<TitleBasics> titleBasics { get; set; }
         public DbSet<SearchHistory> searchHistories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
+
+            var config = new ConfigurationBuilder()
+                    .AddJsonFile("config.json")
+                    .AddEnvironmentVariables()
+                    .Build();
+
             optionsBuilder.UseLoggerFactory(loggerFactory);
-            optionsBuilder.UseNpgsql(_connectionString);
+            optionsBuilder.UseNpgsql(config["connectionString"]);
         }
 
         //For the string_search

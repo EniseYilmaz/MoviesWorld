@@ -8,9 +8,9 @@ namespace SubProject.DataServices
 {
     public class ActorDS : IActorDS
     {
+        private readonly MoviesContext ctx = new MoviesContext();
         public IList<PopularActors> GetPopularActors()
         {
-            using var ctx = new MoviesContext("host=rawdata.ruc.dk;db=raw10;uid=raw10;pwd=Y)oCi6U(");
             return ctx.PopularActors();
         }
     }

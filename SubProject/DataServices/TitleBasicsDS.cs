@@ -11,8 +11,7 @@ namespace SubProject.DataServices
 
         public IList<TitleBasics> GetTitleBasics(int page = 1, int pagesize = 10)
         {
-            using var ctx = new MoviesContext("host=rawdata.ruc.dk;db=raw10;uid=raw10;pwd=Y)oCi6U(");
-            Console.WriteLine(ctx);
+            using var ctx = new MoviesContext();
             return ctx.titleBasics.Skip(page*pagesize).Take(pagesize).ToList();
         }
     }
