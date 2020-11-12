@@ -18,6 +18,25 @@ namespace SubProject.Controllers
             ds = dataservice;
         }
 
+        [HttpGet]
+        public IActionResult BookmarkPage()
+        {
+
+            // can be used with cookies to enter the bookmarks for the logged in user. LATER... The add bookmark, maybe
+            var temp = new
+            {
+                Addmovietobookmarks = "http://localhost:5000/api/bookmarks/movie/add/{userName}/{movieId}",
+                RemoveMoviefromBookmarks = "http://localhost:5000/api/bookmarks/movie/remove/{userName}/{movieId}",
+                AddActortoBookmark = "http://localhost:5000/api/bookmarks/person/add/{userName}/{personId}",
+                RemoveActorfromBookmark = "http://localhost:5000/api/bookmarks/person/remove/{userName}/{personId}",
+                GetusersbookmarksTitles = "http://localhost:5000/api/bookmarks/titles/{userName}",
+                GetusersbookmarksActors = "http://localhost:5000/api/bookmarks/actors/{userName}"
+            };
+
+        
+            return Ok(temp.ToJson());
+        }
+
         [HttpGet("movie/add/{userName}/{movieId}")]
         public IActionResult AddMovieBookMark(string userName, string movieId)
         {

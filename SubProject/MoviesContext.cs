@@ -479,6 +479,56 @@ namespace SubProject
 
         }
 
+        public TitleBasics GetSingleTitleBasics(String id)
+        {
+            var title = new TitleBasics();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = $"Select * from title_basics where tconst = '{id}'";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        
+                        var mid = Convert.ToString(reader["Tconst"]);
+                        var titleType = Convert.ToString(reader["titletype"]);
+                        var primaryTitle = Convert.ToString(reader["primarytitle"]);
+                        var originalTitle = Convert.ToString(reader["originaltitle"]);
+                        var isAdult = Convert.ToBoolean(reader["isadult"]);
+                        var startYear = Convert.ToString(reader["startyear"]);
+                        var endYear = Convert.ToString(reader["endyear"]);
+                        var runtimeMinutes = Convert.ToInt32(reader["runtimeminutes"]); 
+                        var genres = Convert.ToString(reader["genres"]);
+
+                        title = new TitleBasics()
+                        {
+                            Id = mid,
+                            TitleType = titleType,
+                            PrimaryTitle = primaryTitle,
+                            OriginalTitle = originalTitle,
+                            IsAdult = isAdult,
+                            StartYear = startYear,
+                            EndYear = endYear,
+                            RuntimeMinutes = runtimeMinutes,
+                            Genres = genres
+
+                        };
+                    }
+                }
+
+                return title;
+            }
+
+        }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //For title_basics table

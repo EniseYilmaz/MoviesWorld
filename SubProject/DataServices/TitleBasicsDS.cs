@@ -9,11 +9,17 @@ namespace SubProject.DataServices
     public class TitleBasicsDS : ITitleBasicsDS
     {
 
-        public IList<TitleBasics> GetTitleBasics(int page = 1, int pagesize = 10)
+        public IList<TitleBasics> GetTitleBasics(int page, int pagesize)
         {
             using var ctx = new MoviesContext();
             return ctx.titleBasics.Skip(page*pagesize).Take(pagesize).ToList();
         }
+        public TitleBasics GetSingleTitleBasics(string id)
+        {
+            using var ctx = new MoviesContext();
+            return ctx.GetSingleTitleBasics(id);
+        }
+
     }
 }
 //"host=rawdata.ruc.dk;db=raw10;uid=raw10;pwd=Y)oCi6U("
