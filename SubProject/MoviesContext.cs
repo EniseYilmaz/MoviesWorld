@@ -44,6 +44,8 @@ namespace SubProject
                 command.CommandText = "string_search";
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("s", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = keyword });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("uname", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = "adam12" });
 
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
@@ -81,6 +83,8 @@ namespace SubProject
                 { Value = firstKeyword });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("secondkeyword", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = secondKeyword });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("uname", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = "adam12" });
 
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
@@ -120,6 +124,8 @@ namespace SubProject
                 { Value = secondKeyword });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("w3", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = thirdKeyword });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("uname", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = "adam12" });
 
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
@@ -128,7 +134,7 @@ namespace SubProject
                 {
                     while (reader.Read())
                     {
-                        var Id = Convert.ToString(reader["tconst"]);
+                        var Id = Convert.ToString(reader["id"]);
                         var Title = Convert.ToString(reader["title"]);
                         int? Rank = Convert.ToInt32(reader["rank"]);
 
