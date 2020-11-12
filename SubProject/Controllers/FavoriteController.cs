@@ -12,7 +12,6 @@ namespace SubProject.Controllers
     public class FavoriteController : ControllerBase
     {
         IFavoriteDS ds;
-
         public FavoriteController(IFavoriteDS dataservice)
         {
             ds = dataservice;

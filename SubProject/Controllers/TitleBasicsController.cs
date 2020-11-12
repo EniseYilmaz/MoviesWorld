@@ -25,6 +25,8 @@ namespace SubProject.Controllers
 
             return Ok(titlebasics.ToJson());
         }
+
+        //uses the tconst id from the db to get a singe title. api/title_basics/tt8236544  for example...
         [HttpGet("{id}")]
         public IActionResult GetSingleTitleBasics(string id)
         {

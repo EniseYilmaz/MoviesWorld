@@ -24,6 +24,8 @@ namespace SubProject
             services.AddSingleton<IActorDS, ActorDS>();
             services.AddSingleton<IBookMarkDS, BookMarkDS>();
             services.AddSingleton<IFavoriteDS, FavoriteDS>();
+            services.AddSingleton<IUserManagerDS, UserManagerDS>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
