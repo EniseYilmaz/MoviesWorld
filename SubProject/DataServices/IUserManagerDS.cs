@@ -9,5 +9,6 @@ namespace SubProject.DataServices
         public bool CreateUser(string username, string name, string email, string password);
         public bool DeleteUser(string username, string email);
         public IList<User> GetAllUsers(int page, int pagesize);
+      
     }
 }

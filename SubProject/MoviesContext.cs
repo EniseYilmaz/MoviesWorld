@@ -599,6 +599,7 @@ namespace SubProject
                         var username = Convert.ToString(reader["username"]);
                         var email = Convert.ToString(reader["email"]);
                         var name = Convert.ToString(reader["name"]);
+                        // password can be added here ....
 
                         var user = new User()
                         {
@@ -606,7 +607,7 @@ namespace SubProject
                            Username = username,
                            Email = email,
                            Name = name
-                           
+                            // password can be added here ....
                         };
 
                         users.Add(user);
@@ -615,6 +616,10 @@ namespace SubProject
                 return users;
             }
         }
+
+        
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //For title_basics table

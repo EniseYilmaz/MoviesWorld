@@ -32,12 +32,15 @@ namespace SubProject.Controllers
             return Ok(comfirmed);
         }
        
-        [HttpGet("allusers")]
+        [HttpGet("getallusers")]
         public IActionResult DisplayAllUsers(int page = 0, int pagesize = 10)
         {
             var Users = ds.GetAllUsers(page, pagesize);
             return Ok(Users.ToJson());
         }
+
+        
+
 
     }
 }

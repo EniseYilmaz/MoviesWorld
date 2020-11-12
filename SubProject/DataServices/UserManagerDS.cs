@@ -25,5 +25,9 @@ namespace SubProject.DataServices
             MoviesContext ctx = new MoviesContext();
             return ctx.GetAllUsers().Skip(page * pagesize).Take(pagesize).ToList();
         }
+
+        
+
+
     }
 }
