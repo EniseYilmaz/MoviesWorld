@@ -380,7 +380,7 @@ namespace SubProject
             using (var command = this.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "rate_movie";
+                command.CommandText = "rating_function_titles";
 
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = rating.Username });
@@ -398,6 +398,34 @@ namespace SubProject
                 return (bool)reader;
             }
         }
+
+
+        //For updating a movie rating
+        public bool UpdateMovieRating(string Username, string movieId, int MovieRating)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "rating_function_titles";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = Username });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = movieId });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = MovieRating });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+
+
+                return (bool)reader;
+            }
+        }
+
 
 
         //For remove movie rating
@@ -428,7 +456,61 @@ namespace SubProject
 
 
 
-        //For rating an actor rating - NOT DONE
+        //For rating an actor rating
+        public bool AddActorRating(NameRating rating)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "rating_function_names";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = rating.Username });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = rating.personId });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = rating.ActorRating });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+
+
+                return (bool)reader;
+            }
+        }
+
+
+
+        //For updating an actor rating
+        public bool UpdateActorRating(string Username, string personId, int ActorRating)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "rating_function_names";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = Username });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = personId });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = ActorRating });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+
+
+                return (bool)reader;
+            }
+        }
+
+
 
 
         //For remove actor rating

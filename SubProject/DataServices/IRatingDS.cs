@@ -13,7 +13,7 @@ namespace SubProject.DataServices
 
 
         //rating persons (actors)
-        bool AddActorRating(string Username, string personId, int MovieRating);
+        bool AddActorRating(NameRating rating);
         bool RemoveActorRating(string Username, string personId, int MovieRating);
         bool UpdateActorRating(string Username, string personId, int MovieRating);
         
