@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SubProject.Models;
 
 namespace SubProject.DataServices
 {
@@ -15,6 +16,11 @@ namespace SubProject.DataServices
         public bool RemoveMovieFavorite(string userName, string movieId)
         {
             return ctx.RemoveMovieFavorite(userName, movieId);
+        }
+
+        public IList<UsersFavorite> GetUsersFavorites(string username, int page, int pagesize)
+        {
+            return ctx.GetusersFavorites(username).Skip(page * pagesize).Take(pagesize).ToList();
         }
     }
 }

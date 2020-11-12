@@ -31,5 +31,14 @@ namespace SubProject.Controllers
             var data = ds.RemoveMovieFavorite(userName, movieId);
             return Ok(data);
         }
+
+        [HttpGet("{userName}")]
+        public IActionResult ShowUserFavorites(string userName, int page = 0, int pagesize = 10)
+        {
+            var data = ds.GetUsersFavorites(userName, page, pagesize);
+           // Console.WriteLine(data[0].Id);
+            return Ok(data.ToJson());
+
+        }
     }
 }

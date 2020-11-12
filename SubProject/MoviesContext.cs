@@ -19,7 +19,11 @@ namespace SubProject
         public static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
         public DbSet<TitleBasics> titleBasics { get; set; }
         public DbSet<SearchHistory> searchHistories { get; set; }
+        
+       
+        
 
+       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
@@ -369,7 +373,111 @@ namespace SubProject
             }
         }
 
+        
+        public IList<UsersFavorite> GetusersFavorites(String username)
+        {
+            var Userfavorites = new List<UsersFavorite>();
 
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = $"Select * from favorites where username = '{username}'";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        var Username = Convert.ToString(reader["username"]);
+                        var Id = Convert.ToString(reader["Tconst"]);
+                        
+
+                        Userfavorites.Add(new UsersFavorite()
+                        {
+                            Id = Id,
+                            Username = Username
+                            
+                        });
+                    }
+                }
+
+                return Userfavorites;
+            }
+
+        }
+
+        public IList<UserBookmarksTitles> GetUsersBookmarksTitles(String username)
+        {
+            var UserBookmarks = new List<UserBookmarksTitles>();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = $"Select * from bookmarks_movies where username = '{username}'";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        var Username = Convert.ToString(reader["username"]);
+                        var Id = Convert.ToString(reader["Tconst"]);
+
+
+                        UserBookmarks.Add(new UserBookmarksTitles()
+                        {
+                            Id = Id,
+                            Username = Username
+
+                        });
+                    }
+                }
+
+                return UserBookmarks;
+            }
+
+        }
+
+        public IList<UserBookmarksActors> GetUsersBookmarksActors(String username)
+        {
+            var UserBookmarks = new List<UserBookmarksActors>();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = $"Select * from bookmarks_names where username = '{username}'";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        var Username = Convert.ToString(reader["username"]);
+                        var Id = Convert.ToString(reader["nconst"]);
+
+
+                        UserBookmarks.Add(new UserBookmarksActors()
+                        {
+                            Id = Id,
+                            Username = Username
+
+                        });
+                    }
+                }
+
+                return UserBookmarks;
+            }
+
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -392,7 +500,14 @@ namespace SubProject
             modelBuilder.Entity<SearchHistory>().Property(x => x.Keywords).HasColumnName("string_search");
             modelBuilder.Entity<SearchHistory>().Property(x => x.SearchNumber).HasColumnName("search_number");
 
-            
+          
+
+            //usersFavorites
+
+            modelBuilder.Entity<UsersFavorite>().ToTable("favorites").HasNoKey();
+            modelBuilder.Entity<UsersFavorite>().Property(x => x.Username).HasColumnName("username");
+            modelBuilder.Entity<UsersFavorite>().Property(x => x.Id).HasColumnName("tconst");
+
         }
     }
 }

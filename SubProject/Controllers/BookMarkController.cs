@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SubProject.Controllers
 {
     [ApiController]
-    [Route("api/bookmark")]
+    [Route("api/bookmarks")]
     public class BookMarkController : ControllerBase
     {
         IBookMarkDS ds;
@@ -45,5 +45,19 @@ namespace SubProject.Controllers
             var data = ds.RemoveNameBookMark(userName, personId);
             return Ok(data);
         }
+
+        [HttpGet("titles/{userName}")]
+        public IActionResult ShowUsersBookmarksTitles(string userName, int page = 0, int pagesize = 10)
+        {
+            var data = ds.GetUsersBookmarksTitles(userName, page, pagesize);
+            return Ok(data.ToJson());
+        }
+        [HttpGet("actors/{userName}")]
+        public IActionResult ShowUsersBookmarksActors(string userName, int page = 0, int pagesize = 10)
+        {
+            var data = ds.GetUsersBookmarksActors(userName, page, pagesize);
+            return Ok(data.ToJson());
+        }
+
     }
 }
