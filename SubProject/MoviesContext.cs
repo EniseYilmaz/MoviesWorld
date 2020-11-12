@@ -19,6 +19,7 @@ namespace SubProject
         public static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
         public DbSet<TitleBasics> titleBasics { get; set; }
         public DbSet<SearchHistory> searchHistories { get; set; }
+        public DbSet<User> users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -392,7 +393,13 @@ namespace SubProject
             modelBuilder.Entity<SearchHistory>().Property(x => x.Keywords).HasColumnName("string_search");
             modelBuilder.Entity<SearchHistory>().Property(x => x.SearchNumber).HasColumnName("search_number");
 
-            
+            //For users table
+            modelBuilder.Entity<User>().ToTable("users");
+            modelBuilder.Entity<User>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<User>().Property(x => x.UserName).HasColumnName("username");
+            modelBuilder.Entity<User>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<User>().Property(x => x.Email).HasColumnName("email");
+            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
         }
     }
 }
