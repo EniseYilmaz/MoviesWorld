@@ -219,6 +219,104 @@ namespace SubProject
             }
         }
 
+        //For add movie to bookmark
+        public bool AddMovieBookMark(string userName, string movieId )
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "add_to_bookmark_movie";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = userName });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = movieId });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+
+
+                return (bool)reader;
+            }
+        }
+
+        //For remove movie from bookmark
+        public bool RemoveMovieBookMark(string userName, string movieId)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "remove_from_bookmark_movie";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = userName });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = movieId });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+
+
+                return (bool)reader;
+            }
+        }
+
+        //For add name to bookmark
+        public bool AddNameBookMark(string userName, string personId)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "add_to_bookmark_names";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = userName });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = personId });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+
+
+                return (bool)reader;
+            }
+        }
+
+        //For remove movie from bookmark
+        public bool RemoveNameBookMark(string userName, string personId)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "remove_from_bookmark_names";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = userName });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = personId });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+
+
+                return (bool)reader;
+            }
+        }
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //For title_basics table
