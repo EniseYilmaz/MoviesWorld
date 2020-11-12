@@ -44,6 +44,8 @@ namespace SubProject
                 command.CommandText = "string_search";
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("s", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = keyword });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("uname", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = "adam12" });
 
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
@@ -81,6 +83,8 @@ namespace SubProject
                 { Value = firstKeyword });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("secondkeyword", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = secondKeyword });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("uname", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = "adam12" });
 
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
@@ -120,6 +124,8 @@ namespace SubProject
                 { Value = secondKeyword });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("w3", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = thirdKeyword });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("uname", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = "adam12" });
 
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
@@ -128,7 +134,7 @@ namespace SubProject
                 {
                     while (reader.Read())
                     {
-                        var Id = Convert.ToString(reader["tconst"]);
+                        var Id = Convert.ToString(reader["id"]);
                         var Title = Convert.ToString(reader["title"]);
                         int? Rank = Convert.ToInt32(reader["rank"]);
 
@@ -291,7 +297,7 @@ namespace SubProject
             }
         }
 
-        //For remove movie from bookmark
+        //For remove name from bookmark
         public bool RemoveNameBookMark(string userName, string personId)
         {
 
@@ -304,6 +310,54 @@ namespace SubProject
                 { Value = userName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = personId });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+
+
+                return (bool)reader;
+            }
+        }
+
+        //For add movie to fav
+        public bool AddMovieFavorite(string userName, string movieId)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "add_to_fav";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = userName });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = movieId });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+
+
+                return (bool)reader;
+            }
+        }
+
+        //For remove movie from fav
+        public bool RemoveMovieFavorite(string userName, string movieId)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "remove_from_fav_movie";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = userName });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = movieId });
 
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
