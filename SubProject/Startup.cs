@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SubProject.DataServices;
+using SubProject.Middleware;
 
 namespace SubProject
 {
@@ -24,6 +20,8 @@ namespace SubProject
             services.AddSingleton<IActorDS, ActorDS>();
             services.AddSingleton<IBookMarkDS, BookMarkDS>();
             services.AddSingleton<IFavoriteDS, FavoriteDS>();
+            services.AddSingleton<IUserDS, UserDS>();
+            services.AddSingleton<IRatingDS, RatingDS>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +33,8 @@ namespace SubProject
             }
 
             app.UseRouting();
+
+            app.UseJwtAuth();
 
             app.UseEndpoints(endpoints =>
             {
