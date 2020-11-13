@@ -8,8 +8,8 @@ namespace SubProject.DataServices
         bool RemoveMovieBookMark(string userName, string movieId);
         bool AddNameBookMark(string userName, string personId);
         bool RemoveNameBookMark(string userName, string personId);
-        IList<UserBookmarksTitles> GetUsersBookmarksTitles(string username, int page, int pagesize);
-        IList<UserBookmarksActors> GetUsersBookmarksActors(string username, int page, int pagesize);
+        IList<BookmarkMovies> GetUsersBookmarksTitles(string username, int page, int pagesize);
+        IList<BookmarkActors> GetUsersBookmarksActors(string username, int page, int pagesize);
 
     }
 }

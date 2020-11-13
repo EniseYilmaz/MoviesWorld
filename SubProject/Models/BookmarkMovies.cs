@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace SubProject.Models
 {
-    public class UserBookmarksTitles
+    public class BookmarkMovies
     {
-        public string Username { get; set; }
-        public string Id { get; set; }
-
+        public string UserName { get; set; }
+        public string MovieId { get; set; }
     }
 }

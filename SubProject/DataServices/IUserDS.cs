@@ -7,6 +7,8 @@ namespace SubProject.DataServices
         User GetUser(string userName);
         User GetUser(int id);
 
+        bool Delete(string userName);
+
         User CreateUser(string userName, string name, string email, string password, string salt);
     }
 }

@@ -20,7 +20,6 @@ namespace SubProject
             services.AddSingleton<IActorDS, ActorDS>();
             services.AddSingleton<IBookMarkDS, BookMarkDS>();
             services.AddSingleton<IFavoriteDS, FavoriteDS>();
-            services.AddSingleton<IUserManagerDS, UserManagerDS>();
             services.AddSingleton<IUserDS, UserDS>();
             services.AddSingleton<IRatingDS, RatingDS>();
 

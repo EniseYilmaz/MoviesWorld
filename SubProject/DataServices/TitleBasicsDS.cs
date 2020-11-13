@@ -17,7 +17,7 @@ namespace SubProject.DataServices
         public TitleBasics GetSingleTitleBasics(string id)
         {
             using var ctx = new MoviesContext();
-            return ctx.GetSingleTitleBasics(id);
+            return ctx.titleBasics.Where(t => t.Id == id).FirstOrDefault();
         }
 
     }

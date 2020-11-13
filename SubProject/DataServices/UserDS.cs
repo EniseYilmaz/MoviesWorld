@@ -20,6 +20,23 @@ namespace SubProject.DataServices
             return ctx.users.Where(u => u.Id == id).FirstOrDefault();
         }
 
+        public bool Delete(string userName)
+        {
+            try
+            {
+                var user = ctx.users.Where(u => u.UserName == userName).FirstOrDefault();
+                ctx.users.Remove(user);
+                ctx.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+
+        }
+
         public User CreateUser(string userName, string name, string email, string password, string salt)
         {
             var user = new User

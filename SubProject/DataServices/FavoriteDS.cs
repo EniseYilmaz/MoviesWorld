@@ -20,7 +20,7 @@ namespace SubProject.DataServices
 
         public IList<UsersFavorite> GetUsersFavorites(string username, int page, int pagesize)
         {
-            return ctx.GetusersFavorites(username).Skip(page * pagesize).Take(pagesize).ToList();
+            return ctx.favorites.Where(u => u.UserName == username).Skip(page * pagesize).Take(pagesize).ToList();
         }
     }
 }

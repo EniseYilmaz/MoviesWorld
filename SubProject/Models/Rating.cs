@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 
 namespace SubProject.Models
 {
-    public class TitleRating
+    public class TitleRatingDto
     {
         //Rating movies
-        public string Username { get; set; }
-        public string movieId { get; set; }
+        public string UserName { get; set; }
+        public string MovieId { get; set; }
         public int MovieRating { get; set; }
 
     }
 
-    public class NameRating
+    public class NameRatingDto
     {
         //Rating person (actors)
-        public string Username { get; set; }
-        public string personId { get; set; }
+        public string UserName { get; set; }
+        public string PersonId { get; set; }
         public int ActorRating { get; set; }
 
     }

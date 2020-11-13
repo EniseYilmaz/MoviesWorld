@@ -25,14 +25,14 @@ namespace SubProject.DataServices
         {
             return ctx.RemoveNameBookMark(userName, personId);
         }
-        public IList<UserBookmarksTitles> GetUsersBookmarksTitles(string username, int page, int pagesize)
+        public IList<BookmarkMovies> GetUsersBookmarksTitles(string username, int page, int pagesize)
         {
-            return ctx.GetUsersBookmarksTitles(username).Skip(page * pagesize).Take(pagesize).ToList();
+            return ctx.bookmarkMovies.Where(u => u.UserName == username).Skip(page * pagesize).Take(pagesize).ToList();
         }
 
-        public IList<UserBookmarksActors> GetUsersBookmarksActors(string username, int page, int pagesize)
+        public IList<BookmarkActors> GetUsersBookmarksActors(string username, int page, int pagesize)
         {
-            return ctx.GetUsersBookmarksActors(username).Skip(page * pagesize).Take(pagesize).ToList();
+            return ctx.bookmarkActors.Where(u => u.UserName == username).Skip(page * pagesize).Take(pagesize).ToList();
         }
     }
 }
