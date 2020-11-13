@@ -16,14 +16,14 @@ namespace SubProject.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult SimilarMovies(string id)
+        public IActionResult GetMovie(string id)
         {
             var data = ds.GetMovie(id);
             return Ok(data);
         }
 
         [HttpGet("similar/{movieTitle}")]
-        public IActionResult GetMovie(string movieTitle)
+        public IActionResult SimilarMovies(string movieTitle)
         {
             var data = ds.SimilarMovies(movieTitle);
             return Ok(data);

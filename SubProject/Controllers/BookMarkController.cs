@@ -37,14 +37,14 @@ namespace SubProject.Controllers
             return Ok(temp.ToJson());
         }
 
-        [HttpGet("movie/add/{userName}/{movieId}")]
+        [HttpGet("title/add/{userName}/{movieId}")]
         public IActionResult AddMovieBookMark(string userName, string movieId)
         {
             var data = ds.AddMovieBookMark(userName, movieId);
             return Ok(data);
         }
 
-        [HttpGet("movie/remove/{userName}/{movieId}")]
+        [HttpGet("title/remove/{userName}/{movieId}")]
         public IActionResult RemoveMovieBookMark(string userName, string movieId)
         {
             var data = ds.RemoveMovieBookMark(userName, movieId);

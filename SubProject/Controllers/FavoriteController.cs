@@ -37,14 +37,14 @@ namespace SubProject.Controllers
         }
 
 
-        [HttpGet("movie/add/{userName}/{movieId}")]
+        [HttpGet("title/add/{userName}/{movieId}")]
         public IActionResult AddMovieFavorite(string userName, string movieId)
         {
             var data = ds.AddMovieFavorite(userName, movieId);
             return Ok(data);
         }
 
-        [HttpGet("movie/remove/{userName}/{movieId}")]
+        [HttpGet("title/remove/{userName}/{movieId}")]
         public IActionResult RemoveMovieFavorite(string userName, string movieId)
         {
             var data = ds.RemoveMovieFavorite(userName, movieId);

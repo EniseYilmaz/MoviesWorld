@@ -601,7 +601,7 @@ namespace SubProject
                         var user = new User()
                         {
 
-                           Username = username,
+                           UserName = username,
                            Email = email,
                            Name = name
                             // password can be added here ....

@@ -22,7 +22,7 @@ namespace SubProject
             services.AddSingleton<IFavoriteDS, FavoriteDS>();
             services.AddSingleton<IUserManagerDS, UserManagerDS>();
             services.AddSingleton<IUserDS, UserDS>();
-            services.AddSingleton<IRatingDS, RatingDS>();
+            //services.AddSingleton<IRatingDS, RatingDS>();
 
         }
 
