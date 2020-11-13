@@ -25,28 +25,28 @@ namespace SubProject.DataServices
         public IActionResult SimpleSearch(string keyword)
         {
             var data = ds.Search(keyword);
-            return Ok(data);
+            return Ok(data.ToJson());
         }
 
         [HttpGet("{firstKeyword}/{secondKeyword}")]
         public IActionResult ExactSearch(string firstKeyword, string secondKeyword)
         {
             var data = ds.ExactSearch(firstKeyword, secondKeyword);
-            return Ok(data);
+            return Ok(data.ToJson());
         }
 
         [HttpGet("{firstKeyword}/{secondKeyword}/{thirdKeyword}")]
         public IActionResult BestSearch(string firstKeyword, string secondKeyword, string thirdKeyword)
         {
             var data = ds.BestSearch(firstKeyword, secondKeyword, thirdKeyword);
-            return Ok(data);
+            return Ok(data.ToJson());
         }
 
         [HttpGet("history/{userName}")]
         public IActionResult SearchHistory(string userName)
             {
                 var data = ds.SearchHistory(userName);
-                return Ok(data);
+                return Ok(data.ToJson());
             }
     }
 }

@@ -20,9 +20,7 @@ namespace SubProject
         public DbSet<TitleBasics> titleBasics { get; set; }
         public DbSet<SearchHistory> searchHistories { get; set; }
         public DbSet<User> users { get; set; }
-
         
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
@@ -372,6 +370,251 @@ namespace SubProject
             }
         }
 
+        
+        public IList<UsersFavorite> GetusersFavorites(String username)
+        {
+            var Userfavorites = new List<UsersFavorite>();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = $"Select * from favorites where username = '{username}'";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        var Username = Convert.ToString(reader["username"]);
+                        var Id = Convert.ToString(reader["Tconst"]);
+                        
+
+                        Userfavorites.Add(new UsersFavorite()
+                        {
+                            Id = Id,
+                            Username = Username
+                            
+                        });
+                    }
+                }
+
+                return Userfavorites;
+            }
+
+        }
+
+        public IList<UserBookmarksTitles> GetUsersBookmarksTitles(String username)
+        {
+            var UserBookmarks = new List<UserBookmarksTitles>();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = $"Select * from bookmarks_movies where username = '{username}'";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        var Username = Convert.ToString(reader["username"]);
+                        var Id = Convert.ToString(reader["Tconst"]);
+
+
+                        UserBookmarks.Add(new UserBookmarksTitles()
+                        {
+                            Id = Id,
+                            Username = Username
+
+                        });
+                    }
+                }
+
+                return UserBookmarks;
+            }
+
+        }
+
+        public IList<UserBookmarksActors> GetUsersBookmarksActors(String username)
+        {
+            var UserBookmarks = new List<UserBookmarksActors>();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = $"Select * from bookmarks_names where username = '{username}'";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        var Username = Convert.ToString(reader["username"]);
+                        var Id = Convert.ToString(reader["nconst"]);
+
+
+                        UserBookmarks.Add(new UserBookmarksActors()
+                        {
+                            Id = Id,
+                            Username = Username
+
+                        });
+                    }
+                }
+
+                return UserBookmarks;
+            }
+
+        }
+
+        public TitleBasics GetSingleTitleBasics(String id)
+        {
+            var title = new TitleBasics();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = $"Select * from title_basics where tconst = '{id}'";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        
+                        var mid = Convert.ToString(reader["Tconst"]);
+                        var titleType = Convert.ToString(reader["titletype"]);
+                        var primaryTitle = Convert.ToString(reader["primarytitle"]);
+                        var originalTitle = Convert.ToString(reader["originaltitle"]);
+                        var isAdult = Convert.ToBoolean(reader["isadult"]);
+                        var startYear = Convert.ToString(reader["startyear"]);
+                        var endYear = Convert.ToString(reader["endyear"]);
+                        var runtimeMinutes = Convert.ToInt32(reader["runtimeminutes"]); 
+                        var genres = Convert.ToString(reader["genres"]);
+
+                        title = new TitleBasics()
+                        {
+                            Id = mid,
+                            TitleType = titleType,
+                            PrimaryTitle = primaryTitle,
+                            OriginalTitle = originalTitle,
+                            IsAdult = isAdult,
+                            StartYear = startYear,
+                            EndYear = endYear,
+                            RuntimeMinutes = runtimeMinutes,
+                            Genres = genres
+
+                        };
+                    }
+                }
+
+                return title;
+            }
+
+        }
+        
+
+            public bool DeleteUser(string userName, string email)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "delete_user";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = userName });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputemail", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = email });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+                //returns true if the user was created succesfully
+
+                return (bool)reader;
+            }
+        }
+
+
+        public bool CreateUser(string userName, string name, string email , string password)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "add_user";
+
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = userName });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputname", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = name });
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputemail", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = email});
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputpassword", NpgsqlTypes.NpgsqlDbType.Varchar)
+                { Value = password });
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                var reader = command.ExecuteScalar();
+                //returns true if the user was created succesfully
+
+                return (bool)reader;
+            }
+        }
+
+        public IList<User> GetAllUsers()
+        {
+
+            var users = new List<User>();
+            using (var command = this.Database.GetDbConnection().CreateCommand()) { 
+                command.CommandType = CommandType.Text;
+                command.CommandText = "Select username,email,name from users";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        var username = Convert.ToString(reader["username"]);
+                        var email = Convert.ToString(reader["email"]);
+                        var name = Convert.ToString(reader["name"]);
+                        // password can be added here ....
+
+                        var user = new User()
+                        {
+
+                           Username = username,
+                           Email = email,
+                           Name = name
+                            // password can be added here ....
+                        };
+
+                        users.Add(user);
+                    }
+                }
+                return users;
+            }
+        }
+
+        
 
 
 
@@ -564,6 +807,13 @@ namespace SubProject
             modelBuilder.Entity<SearchHistory>().Property(x => x.Keywords).HasColumnName("string_search");
             modelBuilder.Entity<SearchHistory>().Property(x => x.SearchNumber).HasColumnName("search_number");
 
+            //usersFavorites
+            modelBuilder.Entity<UsersFavorite>().ToTable("favorites").HasNoKey();
+            modelBuilder.Entity<UsersFavorite>().Property(x => x.Username).HasColumnName("username");
+            modelBuilder.Entity<UsersFavorite>().Property(x => x.Id).HasColumnName("tconst");
+
+            
+
             //For users table
             modelBuilder.Entity<User>().ToTable("users");
             modelBuilder.Entity<User>().Property(x => x.Id).HasColumnName("id");
@@ -572,6 +822,7 @@ namespace SubProject
             modelBuilder.Entity<User>().Property(x => x.Email).HasColumnName("email");
             modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
             modelBuilder.Entity<User>().Property(x => x.Salt).HasColumnName("salt");
+
         }
     }
 }

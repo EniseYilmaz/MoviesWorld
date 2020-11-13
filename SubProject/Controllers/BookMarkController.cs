@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SubProject.Controllers
 {
     [ApiController]
-    [Route("api/bookmark")]
+    [Route("api/bookmarks")]
     public class BookMarkController : ControllerBase
     {
         IBookMarkDS ds;
@@ -16,6 +16,25 @@ namespace SubProject.Controllers
         public BookMarkController(IBookMarkDS dataservice)
         {
             ds = dataservice;
+        }
+
+        [HttpGet]
+        public IActionResult BookmarkPage()
+        {
+
+            // can be used with cookies to enter the bookmarks for the logged in user. LATER... The add bookmark, maybe
+            var temp = new
+            {
+                Addmovietobookmarks = "http://localhost:5000/api/bookmarks/movie/add/{userName}/{movieId}",
+                RemoveMoviefromBookmarks = "http://localhost:5000/api/bookmarks/movie/remove/{userName}/{movieId}",
+                AddActortoBookmark = "http://localhost:5000/api/bookmarks/person/add/{userName}/{personId}",
+                RemoveActorfromBookmark = "http://localhost:5000/api/bookmarks/person/remove/{userName}/{personId}",
+                GetusersbookmarksTitles = "http://localhost:5000/api/bookmarks/titles/{userName}",
+                GetusersbookmarksActors = "http://localhost:5000/api/bookmarks/actors/{userName}"
+            };
+
+        
+            return Ok(temp.ToJson());
         }
 
         [HttpGet("movie/add/{userName}/{movieId}")]
@@ -45,5 +64,19 @@ namespace SubProject.Controllers
             var data = ds.RemoveNameBookMark(userName, personId);
             return Ok(data);
         }
+
+        [HttpGet("titles/{userName}")]
+        public IActionResult ShowUsersBookmarksTitles(string userName, int page = 0, int pagesize = 10)
+        {
+            var data = ds.GetUsersBookmarksTitles(userName, page, pagesize);
+            return Ok(data.ToJson());
+        }
+        [HttpGet("actors/{userName}")]
+        public IActionResult ShowUsersBookmarksActors(string userName, int page = 0, int pagesize = 10)
+        {
+            var data = ds.GetUsersBookmarksActors(userName, page, pagesize);
+            return Ok(data.ToJson());
+        }
+
     }
 }
