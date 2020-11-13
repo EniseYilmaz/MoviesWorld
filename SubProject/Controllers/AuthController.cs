@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SubProject.DataServices;
 using SubProject.Models;
@@ -18,10 +19,12 @@ namespace SubProject.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserDS _dataService;
+        private readonly IConfiguration _configuration;
 
-        public AuthController(IUserDS dataService)
+        public AuthController(IUserDS dataService, IConfiguration configuration)
         {
             _dataService = dataService;
+            _configuration = configuration;
         }
 
         [HttpPost("register")]
@@ -32,12 +35,18 @@ namespace SubProject.Controllers
                 return BadRequest();
 
             }
+            
+            int.TryParse(_configuration.GetSection("Auth:PasswordSize").Value, out int pwdSize);
 
-            int pwdSize = 256;
-            var salt = "salt12345"; //PasswordService.GenerateSalt(pwdSize);
+            if(pwdSize == 0)
+            {
+                throw new ArgumentException("No password size");
+            }
+
+            var salt = PasswordService.GenerateSalt(pwdSize);
             var pwd = PasswordService.HashPassword(user.Password, salt, pwdSize);
 
-            _dataService.CreateUser(user.UserName, user.Name, user.Email, user.Password);
+            _dataService.CreateUser(user.UserName, user.Name, user.Email, pwd, salt);
 
             return CreatedAtRoute(null, new { user.UserName });
         }
@@ -49,18 +58,26 @@ namespace SubProject.Controllers
 
             if(user == null)
             {
-                return BadRequest();
+               return BadRequest();
             }
 
-            int pwdsize = 256;
-            var salt = "salt12345";
-            string secret = "secretmoviesworldcode";
+            int.TryParse(_configuration.GetSection("Auth:PasswordSize").Value, out int pwdSize);
 
-            var password = PasswordService.HashPassword(user.Password, salt, pwdsize);
-
-            if(password != user.Password)
+            if (pwdSize == 0)
             {
-                return BadRequest();
+                throw new ArgumentException("No password size");
+            }
+
+            string secret = _configuration.GetSection("Auth:Secret").Value;
+            if (string.IsNullOrEmpty(secret))
+            {
+                throw new ArgumentException("No secret");
+            }
+
+            var password = PasswordService.HashPassword(dto.Password, user.Salt, pwdSize);
+            if (password != user.Password)
+            {
+               return BadRequest();
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -68,8 +85,8 @@ namespace SubProject.Controllers
             var key = Encoding.UTF8.GetBytes(secret);
             var tokenDescription = new SecurityTokenDescriptor()
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("userName", user.UserName) }),
-                Expires = DateTime.Now.AddSeconds(45),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Expires = DateTime.Now.AddSeconds(86400),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)

@@ -21,6 +21,8 @@ namespace SubProject
         public DbSet<SearchHistory> searchHistories { get; set; }
         public DbSet<User> users { get; set; }
 
+        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
@@ -400,6 +402,7 @@ namespace SubProject
             modelBuilder.Entity<User>().Property(x => x.Name).HasColumnName("name");
             modelBuilder.Entity<User>().Property(x => x.Email).HasColumnName("email");
             modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
+            modelBuilder.Entity<User>().Property(x => x.Salt).HasColumnName("salt");
         }
     }
 }

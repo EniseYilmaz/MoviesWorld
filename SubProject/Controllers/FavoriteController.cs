@@ -13,6 +13,8 @@ namespace SubProject.Controllers
     {
         IFavoriteDS ds;
 
+        //public _loggedUser = Request.HttpContext.Items["User"] as User;
+
         public FavoriteController(IFavoriteDS dataservice)
         {
             ds = dataservice;

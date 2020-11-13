@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SubProject.Attributes;
 using SubProject.DataServices;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace SubProject.Controllers
             ds = dataservice;
         }
 
+        [Authorization]
         [HttpGet("{keyword}")]
         public IActionResult SimpleSearch(string keyword)
         {
