@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SubProject.Controllers
+namespace SubProject.DataServices
 {
     [ApiController]
     [Route("api/search")]
