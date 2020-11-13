@@ -18,7 +18,5 @@
     <Folder Include="NewFolder\" />
   </ItemGroup>
 
-    <Content Remove="mono_crash.11a6748113.0.json" />
-  </ItemGroup>
 
 </Project>
