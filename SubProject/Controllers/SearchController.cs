@@ -10,6 +10,7 @@ namespace SubProject.DataServices
 {
     [ApiController]
     [Route("api/search")]
+    [Authorization]
     public class SearchController : ControllerBase
     {
 
@@ -20,7 +21,7 @@ namespace SubProject.DataServices
             ds = dataservice;
         }
 
-        [Authorization]
+        
         [HttpGet("{keyword}")]
         public IActionResult SimpleSearch(string keyword)
         {

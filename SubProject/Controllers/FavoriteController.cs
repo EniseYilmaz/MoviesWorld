@@ -4,11 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SubProject.Attributes;
 
 namespace SubProject.Controllers
 {
     [ApiController]
     [Route("api/favorites")]
+    [Authorization]
     public class FavoriteController : ControllerBase
     {
         IFavoriteDS ds;

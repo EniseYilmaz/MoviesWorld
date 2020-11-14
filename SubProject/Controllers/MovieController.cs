@@ -4,11 +4,13 @@ using AutoMapper;
 using SubProject.Dto;
 using DataServiceLib.Models;
 using System.Collections.Generic;
+using SubProject.Attributes;
 
 namespace SubProject.Controllers
 {
     [ApiController]
     [Route("api/movies")]
+    [Authorization]
     public class MovieController : ControllerBase
     {
         private readonly IMapper _mapper;

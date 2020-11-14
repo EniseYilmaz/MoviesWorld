@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DataServiceLib.DataServices;
+using SubProject.Attributes;
 
 namespace SubProject.Controllers
 {
     [ApiController]
     [Route("api/actors")]
+    [Authorization]
     public class ActorController : ControllerBase
     {
         IActorDS ds;
