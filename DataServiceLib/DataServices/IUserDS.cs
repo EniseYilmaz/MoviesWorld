@@ -1,6 +1,7 @@
-﻿using SubProject.Models;
+﻿using DataServiceLib.Models;
+using System.Collections.Generic;
 
-namespace SubProject.DataServices
+namespace DataServiceLib.DataServices
 {
     public interface IUserDS
     {
@@ -10,5 +11,7 @@ namespace SubProject.DataServices
         bool Delete(string userName);
 
         User CreateUser(string userName, string name, string email, string password, string salt);
+
+        IList<User> GetUsers(int page, int pagesize);
     }
 }

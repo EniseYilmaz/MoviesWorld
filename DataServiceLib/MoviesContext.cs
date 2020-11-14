@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataServiceLib.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Scaffolding.Internal;
-using SubProject.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SubProject
+namespace DataServiceLib
 {
     public class MoviesContext : DbContext
     {

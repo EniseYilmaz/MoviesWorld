@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SubProject.Models;
+using DataServiceLib.Models;
 
-namespace SubProject.DataServices
+namespace DataServiceLib.DataServices
 {
     public class FavoriteDS : IFavoriteDS
     {

@@ -1,10 +1,10 @@
-﻿using SubProject.Models;
+﻿using DataServiceLib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SubProject.DataServices
+namespace DataServiceLib.DataServices
 {
     public class MoviesDS : IMoviesDS
     {
@@ -16,6 +16,11 @@ namespace SubProject.DataServices
         public IList<TitleBasics> GetMovie(string id)
         {
             return ctx.titleBasics.Where(m => m.Id == id).ToList();
+        }
+        public IList<TitleBasics> GetMovies(int page, int pagesize)
+        {
+            using var ctx = new MoviesContext();
+            return ctx.titleBasics.Skip(page * pagesize).Take(pagesize).ToList();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SubProject.Attributes;
-using SubProject.DataServices;
+using DataServiceLib.DataServices;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,13 @@ namespace SubProject.Controllers
     [Authorization]
     public class UserController : ControllerBase
     {
-        IUserDS ds;
+        private readonly IMapper _mapper;
+        private readonly IUserDS ds;
 
-        public UserController(IUserDS dataservice)
+        public UserController(IUserDS dataservice, IMapper mapper)
         {
             ds = dataservice;
+            _mapper = mapper;
         }
 
         [Authorization]
@@ -26,6 +29,14 @@ namespace SubProject.Controllers
         {
             var data = ds.Delete(userName);
             return Ok(data.ToJson());
+        }
+
+        [HttpGet]
+        public IActionResult GetUsers(int page = 0, int pagesize = 10)
+        {
+            var users = ds.GetUsers(page, pagesize);
+
+            return Ok(users.ToJson());
         }
     }
 }

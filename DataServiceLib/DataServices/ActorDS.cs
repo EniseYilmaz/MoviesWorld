@@ -1,10 +1,10 @@
-﻿using SubProject.Models;
+﻿using DataServiceLib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SubProject.DataServices
+namespace DataServiceLib.DataServices
 {
     public class ActorDS : IActorDS
     {

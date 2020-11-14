@@ -1,10 +1,10 @@
-﻿using SubProject.Models;
+﻿using DataServiceLib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SubProject.DataServices
+namespace DataServiceLib.DataServices
 {
     public class UserDS : IUserDS
     {
@@ -18,6 +18,12 @@ namespace SubProject.DataServices
         public User GetUser(int id)
         {
             return ctx.users.Where(u => u.Id == id).FirstOrDefault();
+        }
+
+        public IList<User> GetUsers(int page, int pagesize)
+        {
+            using var ctx = new MoviesContext();
+            return ctx.users.Skip(page * pagesize).Take(pagesize).ToList();
         }
 
         public bool Delete(string userName)
