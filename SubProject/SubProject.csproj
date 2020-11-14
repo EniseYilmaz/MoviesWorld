@@ -5,16 +5,19 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'IIS Express' " />
+
   <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <Content Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

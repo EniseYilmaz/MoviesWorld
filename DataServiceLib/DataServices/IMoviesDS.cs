@@ -1,7 +1,8 @@
-﻿using SubProject.Models;
+﻿using DataServiceLib.Models;
 using System.Collections.Generic;
 
-namespace SubProject.DataServices
+
+namespace DataServiceLib.DataServices
 {
     public interface IMoviesDS
     {

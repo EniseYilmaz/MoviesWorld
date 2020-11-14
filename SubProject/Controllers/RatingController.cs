@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SubProject.DataServices;
-using SubProject.Models;
+using DataServiceLib.DataServices;
+using DataServiceLib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

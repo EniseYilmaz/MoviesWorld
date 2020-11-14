@@ -1,6 +1,6 @@
-﻿using SubProject.Models;
+﻿using DataServiceLib.Models;
 
-namespace SubProject.DataServices
+namespace DataServiceLib.DataServices
 {
     public interface IRatingDS
     {

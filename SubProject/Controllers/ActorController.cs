@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SubProject.DataServices;
+using DataServiceLib.DataServices;
 
 namespace SubProject.Controllers
 {

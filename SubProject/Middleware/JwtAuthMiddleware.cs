@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SubProject.DataServices;
+using DataServiceLib.DataServices;
 
 namespace SubProject.Middleware
 {

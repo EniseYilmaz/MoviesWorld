@@ -1,9 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SubProject.DataServices;
+using DataServiceLib.DataServices;
 using SubProject.Middleware;
+using System;
 
 namespace SubProject
 {
@@ -21,6 +23,7 @@ namespace SubProject
             services.AddSingleton<IFavoriteDS, FavoriteDS>();
             services.AddSingleton<IUserDS, UserDS>();
             services.AddSingleton<IRatingDS, RatingDS>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         }
 

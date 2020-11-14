@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SubProject.DataServices;
-using SubProject.Models;
+using DataServiceLib.DataServices;
+using DataServiceLib.Models;
 using SubProject.Services;
 using System;
 using System.Collections.Generic;

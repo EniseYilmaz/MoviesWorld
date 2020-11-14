@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using SubProject.Models;
-namespace SubProject.DataServices
+using DataServiceLib.Models;
+namespace DataServiceLib.DataServices
 {
     public interface IFavoriteDS
     {
