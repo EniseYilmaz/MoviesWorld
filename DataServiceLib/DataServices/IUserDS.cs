@@ -11,7 +11,6 @@ namespace DataServiceLib.DataServices
         bool Delete(string userName);
 
         User CreateUser(string userName, string name, string email, string password, string salt);
-
         IList<User> GetUsers(int page, int pagesize);
     }
 }

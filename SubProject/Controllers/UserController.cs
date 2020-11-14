@@ -45,6 +45,12 @@ namespace SubProject.Controllers
         public IActionResult GetUser(string userName)
         {
             var user = (User)ds.GetUser(userName);
+            Console.WriteLine(user);
+            if(user == null)
+            {
+                return NotFound();
+            }
+
             var dto = _mapper.Map<UserDto>(user);
             return Ok(dto.ToJson());
         }
