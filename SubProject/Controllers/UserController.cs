@@ -27,5 +27,13 @@ namespace SubProject.Controllers
             var data = ds.Delete(userName);
             return Ok(data.ToJson());
         }
+
+        [HttpGet]
+        public IActionResult GetUsers(int page = 0, int pagesize = 10)
+        {
+            var users = ds.GetUsers(page, pagesize);
+
+            return Ok(users.ToJson());
+        }
     }
 }

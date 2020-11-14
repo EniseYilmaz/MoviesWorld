@@ -14,7 +14,6 @@ namespace SubProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<ITitleBasicsDS, TitleBasicsDS>();
             services.AddSingleton<ISearchDS, SearchDS>();
             services.AddSingleton<IMoviesDS, MoviesDS>();
             services.AddSingleton<IActorDS, ActorDS>();

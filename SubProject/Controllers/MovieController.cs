@@ -16,17 +16,25 @@ namespace SubProject.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult SimilarMovies(string id)
+        public IActionResult GetMovie(string id)
         {
             var data = ds.GetMovie(id);
             return Ok(data);
         }
 
         [HttpGet("similar/{movieTitle}")]
-        public IActionResult GetMovie(string movieTitle)
+        public IActionResult SimilarMovies(string movieTitle)
         {
             var data = ds.SimilarMovies(movieTitle);
             return Ok(data);
+        }
+
+        [HttpGet]
+        public IActionResult GetMovies(int page = 0, int pagesize = 10)
+        {
+            var titlebasics = ds.GetMovies(page, pagesize);
+
+            return Ok(titlebasics.ToJson());
         }
     }
 }
