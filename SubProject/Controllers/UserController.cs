@@ -6,11 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataServiceLib.Models;
+using SubProject.Dto;
 
 namespace SubProject.Controllers
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("api/users")]
     [Authorization]
     public class UserController : ControllerBase
     {
@@ -24,7 +26,7 @@ namespace SubProject.Controllers
         }
 
         [Authorization]
-        [HttpGet("{userName}")]
+        [HttpDelete("{userName}")]
         public IActionResult delete(string userName)
         {
             var data = ds.Delete(userName);
@@ -34,9 +36,17 @@ namespace SubProject.Controllers
         [HttpGet]
         public IActionResult GetUsers(int page = 0, int pagesize = 10)
         {
-            var users = ds.GetUsers(page, pagesize);
+            var users = (IList<User>)ds.GetUsers(page, pagesize);
+            var dto = _mapper.Map<IList<UserDto>>(users);
+            return Ok(dto.ToJson());
+        }
 
-            return Ok(users.ToJson());
+        [HttpGet("{userName}")]
+        public IActionResult GetUser(string userName)
+        {
+            var user = (User)ds.GetUser(userName);
+            var dto = _mapper.Map<UserDto>(user);
+            return Ok(dto.ToJson());
         }
     }
 }

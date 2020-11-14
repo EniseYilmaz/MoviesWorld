@@ -2,6 +2,8 @@
 using DataServiceLib.DataServices;
 using AutoMapper;
 using SubProject.Dto;
+using DataServiceLib.Models;
+using System.Collections.Generic;
 
 namespace SubProject.Controllers
 {
@@ -21,7 +23,7 @@ namespace SubProject.Controllers
         [HttpGet("{id}")]
         public IActionResult GetMovie(string id)
         {
-            var data = ds.GetMovie(id);
+            var data = (TitleBasics)ds.GetMovie(id);
 
             if(data == null)
             {
@@ -41,8 +43,8 @@ namespace SubProject.Controllers
         [HttpGet]
         public IActionResult GetMovies(int page = 0, int pagesize = 10)
         {
-            var titlebasics = ds.GetMovies(page, pagesize);
-            var dto = _mapper.Map<MovieDto>(titlebasics);
+            var titlebasics = (IList <TitleBasics>)ds.GetMovies(page, pagesize);
+            var dto = _mapper.Map<IList<MovieDto>>(titlebasics);
 
             return Ok(dto.ToJson());
         }

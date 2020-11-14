@@ -13,9 +13,9 @@ namespace DataServiceLib.DataServices
         {
             return ctx.SimilarMovies(movieTitle);
         }
-        public IList<TitleBasics> GetMovie(string id)
+        public TitleBasics GetMovie(string id)
         {
-            return ctx.titleBasics.Where(m => m.Id == id).ToList();
+            return ctx.titleBasics.Where(m => m.Id == id).FirstOrDefault();
         }
         public IList<TitleBasics> GetMovies(int page, int pagesize)
         {
