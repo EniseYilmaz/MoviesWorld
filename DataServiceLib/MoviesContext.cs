@@ -387,7 +387,7 @@ namespace DataServiceLib
                 { Value = ratingDto.UserName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = ratingDto.MovieId });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Integer)
                 { Value = ratingDto.Rating });
 
                 if (command.Connection.State == ConnectionState.Closed)
@@ -407,14 +407,13 @@ namespace DataServiceLib
             using (var command = this.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "remove_movie_rating";
+                command.CommandText = "remove_user_rating";
 
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = ratingDto.UserName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = ratingDto.MovieId });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = ratingDto.Rating });
+                
 
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
@@ -441,7 +440,7 @@ namespace DataServiceLib
                 { Value = actorRatingDto.UserName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = actorRatingDto.PersonId });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Integer)
                 { Value = actorRatingDto.Rating });
 
                 if (command.Connection.State == ConnectionState.Closed)
@@ -461,14 +460,13 @@ namespace DataServiceLib
             using (var command = this.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "remove_actor_rating";
+                command.CommandText = "remove_user_rating_names";
 
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = actorRatingDto.UserName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = actorRatingDto.PersonId });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = actorRatingDto.PersonId });
+                
 
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
