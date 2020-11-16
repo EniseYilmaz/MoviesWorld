@@ -387,7 +387,7 @@ namespace DataServiceLib
                 { Value = ratingDto.UserName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = ratingDto.MovieId });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Integer)
                 { Value = ratingDto.Rating });
 
                 if (command.Connection.State == ConnectionState.Closed)
@@ -413,7 +413,7 @@ namespace DataServiceLib
                 { Value = ratingDto.UserName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = ratingDto.MovieId });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Integer)
                 { Value = ratingDto.Rating });
 
                 if (command.Connection.State == ConnectionState.Closed)
@@ -441,7 +441,7 @@ namespace DataServiceLib
                 { Value = actorRatingDto.UserName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = actorRatingDto.PersonId });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Integer)
                 { Value = actorRatingDto.Rating });
 
                 if (command.Connection.State == ConnectionState.Closed)
@@ -467,7 +467,7 @@ namespace DataServiceLib
                 { Value = actorRatingDto.UserName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = actorRatingDto.PersonId });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Varchar)
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Integer)
                 { Value = actorRatingDto.PersonId });
 
                 if (command.Connection.State == ConnectionState.Closed)

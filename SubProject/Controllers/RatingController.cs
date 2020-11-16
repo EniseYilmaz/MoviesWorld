@@ -11,7 +11,6 @@ namespace SubProject.Controllers
 {
     [ApiController]
     [Route("api/rating")]
-    [Authorization]
     public class RatingController : ControllerBase
     {
         IRatingDS ds;
