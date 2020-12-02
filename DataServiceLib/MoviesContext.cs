@@ -478,6 +478,149 @@ namespace DataServiceLib
             }
         }
 
+        //returns 0 if no rating found...
+        public double GetRating(string id)
+        {
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                string table;
+                string idType;
+                if (id[0] == 'n')
+                {
+                    table = "name_ratings";
+                    idType = "Nconst";
+                }
+                else
+                {
+                    table = "title_ratings";
+                    idType = "tconst";
+                }
+
+                command.CommandText = $"Select * from {table} where {idType} = '{id}'";
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    reader.Read();
+                    if (reader.HasRows)
+                    {
+
+
+                        var Id = Convert.ToString(reader[idType]);
+                        double Rating = Convert.ToDouble(reader["averagerating"]);
+                        int NumVotes = Convert.ToInt32(reader["numvotes"]);
+
+                        var rating = new TitleRatingDto()
+                        {
+                            Id = Id,
+                            AverageRating = Rating,
+                            NumVotes = NumVotes
+                        };
+                        return rating.AverageRating;
+                    }
+                    else return 0;
+
+
+                }
+            }
+
+               
+        }
+
+        public IList<Title_Principals> GetPersonal(string id)
+        {
+            var personallist = new List<Title_Principals>();
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+          
+                command.CommandText = $"Select * from title_principals where tconst = '{id}' order by ordering";
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        if (reader.HasRows)
+                        {
+                            var movieId = Convert.ToString(reader["tconst"]);
+                            int ordering = Convert.ToInt32(reader["ordering"]);
+                            string personid = Convert.ToString(reader["nconst"]);
+                            var category = Convert.ToString(reader["category"]);
+                            string characters = Convert.ToString(reader["characters"]);
+
+                            characters = characters.Trim(new Char[] { '[', ']' });
+
+                            var listOfNames= new List<string>(); 
+                            //split string up into list, remove excess chars. 
+                            foreach (string xc in new List<string>(characters.Split(',')))
+                            {
+
+                                listOfNames.Add(xc.Trim(new Char[] { '\'' }));
+
+                            }
+
+
+                            var titleprincipal = new Title_Principals()
+                            {
+                                MovieId = movieId,
+                                Ordering = ordering,
+                                PersonId = personid,
+                                Category = category, 
+                                Characters = listOfNames
+                            };
+                            personallist.Add(titleprincipal);
+
+                        }
+                        
+
+                    }
+
+                }
+            }
+
+            return personallist;
+
+        }
+
+        public OMBDdata GetOMDBData(string id)
+        {
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+
+                command.CommandText = $"Select * from omdb_data where tconst = '{id}'";
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    reader.Read();
+                    if (reader.HasRows)
+                    {
+                        var Id = Convert.ToString(reader["tconst"]);
+                        var poster = Convert.ToString(reader["poster"]);
+                        var awards = Convert.ToString(reader["awards"]);
+                        var plot = Convert.ToString(reader["plot"]);
+
+                        var data = new OMBDdata()
+                        {
+                            Id = Id,
+                            UrlToPoster = poster,
+                            Awards = awards,
+                            Plot = plot
+                        };
+                        return data;
+                    }
+                }
+            }
+            return null;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

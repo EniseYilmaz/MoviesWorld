@@ -22,5 +22,12 @@ namespace SubProject.Controllers
             var data = ds.GetPopularActors();
             return Ok(data);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetPopularActors(string id)
+        {
+            var data = ds.GetPersonal(id);
+            return Ok(data);
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace SubProject.DataServices
         public IActionResult ExactSearch(string firstKeyword, string secondKeyword)
         {
             var data = ds.ExactSearch(firstKeyword, secondKeyword);
-            return Ok(data.ToJson());
+            return Ok(data);
         }
 
         [HttpGet("{firstKeyword}/{secondKeyword}/{thirdKeyword}")]

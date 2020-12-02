@@ -30,7 +30,7 @@ namespace SubProject.Controllers
         public IActionResult delete(string userName)
         {
             var data = ds.Delete(userName);
-            return Ok(data.ToJson());
+            return Ok(data);
         }
 
         [HttpGet]
@@ -38,7 +38,7 @@ namespace SubProject.Controllers
         {
             var users = (IList<User>)ds.GetUsers(page, pagesize);
             var dto = _mapper.Map<IList<UserDto>>(users);
-            return Ok(dto.ToJson());
+            return Ok(dto);
         }
 
         [HttpGet("{userName}")]
@@ -52,7 +52,7 @@ namespace SubProject.Controllers
             }
 
             var dto = _mapper.Map<UserDto>(user);
-            return Ok(dto.ToJson());
+            return Ok(dto);
         }
     }
 }

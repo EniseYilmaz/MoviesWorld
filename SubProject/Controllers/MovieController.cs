@@ -48,7 +48,16 @@ namespace SubProject.Controllers
             var titlebasics = (IList <TitleBasics>)ds.GetMovies(page, pagesize);
             var dto = _mapper.Map<IList<MovieDto>>(titlebasics);
 
-            return Ok(dto.ToJson());
+            return Ok(dto);
         }
+
+        [HttpGet("OMDB/{id}")]
+        public IActionResult GetOMDBdata(string id )
+        {
+            var omdbdata = ds.GetOMBDData(id);
+
+            return Ok(omdbdata);
+        }
+
     }
 }

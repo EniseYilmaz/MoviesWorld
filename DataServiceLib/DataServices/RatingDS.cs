@@ -29,5 +29,10 @@ namespace DataServiceLib.DataServices
             return ctx.RemoveActorRating(actorRatingDto);
         }
 
+        public double GetRating(string id)
+        {
+            return ctx.GetRating(id);
+        }
+
     }
 }

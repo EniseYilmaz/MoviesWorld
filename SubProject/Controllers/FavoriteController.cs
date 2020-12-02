@@ -35,7 +35,7 @@ namespace SubProject.Controllers
             };
 
 
-            return Ok(temp.ToJson());
+            return Ok(temp);
         }
 
 
@@ -58,7 +58,7 @@ namespace SubProject.Controllers
         {
             var data = ds.GetUsersFavorites(userName, page, pagesize);
            // Console.WriteLine(data[0].Id);
-            return Ok(data.ToJson());
+            return Ok(data);
 
         }
     }

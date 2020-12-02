@@ -19,8 +19,13 @@ namespace DataServiceLib.DataServices
         }
         public IList<TitleBasics> GetMovies(int page, int pagesize)
         {
-            using var ctx = new MoviesContext();
             return ctx.titleBasics.Skip(page * pagesize).Take(pagesize).ToList();
+        }
+
+        public OMBDdata GetOMBDData(string id)
+        {
+
+            return ctx.GetOMDBData(id);
         }
     }
 }

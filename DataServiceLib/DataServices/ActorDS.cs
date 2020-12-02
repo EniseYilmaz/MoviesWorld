@@ -13,5 +13,10 @@ namespace DataServiceLib.DataServices
         {
             return ctx.PopularActors();
         }
+
+        public IList<Title_Principals> GetPersonal(string id)
+        {
+            return ctx.GetPersonal(id);
+        }
     }
 }

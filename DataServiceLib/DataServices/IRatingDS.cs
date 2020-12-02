@@ -8,5 +8,6 @@ namespace DataServiceLib.DataServices
         bool AddMovieRating(MovieRatingDto movieRaingDto);
         bool RemoveActorRating(ActorRatingDto actorRatingDto);
         bool RemoveMovieRating(MovieRatingDto movieRaingDto);
+        double GetRating(string id);
     }
 }

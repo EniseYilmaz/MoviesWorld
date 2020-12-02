@@ -6,5 +6,6 @@ namespace DataServiceLib.DataServices
     public interface IActorDS
     {
         IList<PopularActors> GetPopularActors();
+        IList<Title_Principals> GetPersonal(string id);
     }
 }
