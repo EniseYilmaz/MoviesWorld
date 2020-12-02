@@ -24,7 +24,7 @@ namespace SubProject.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetPopularActors(string id)
+        public IActionResult GetPersonal(string id)
         {
             var data = ds.GetPersonal(id);
             return Ok(data);
