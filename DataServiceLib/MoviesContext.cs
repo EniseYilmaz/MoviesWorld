@@ -326,7 +326,7 @@ namespace DataServiceLib
         }
 
         //For add movie to fav
-        public bool AddMovieFavorite(string userName, string movieId)
+        public string AddMovieFavorite(string userName, string movieId)
         {
 
             using (var command = this.Database.GetDbConnection().CreateCommand())
@@ -345,7 +345,7 @@ namespace DataServiceLib
                 var reader = command.ExecuteScalar();
 
 
-                return (bool)reader;
+                return reader.ToString();
             }
         }
 

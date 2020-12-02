@@ -9,7 +9,7 @@ namespace DataServiceLib.DataServices
     public class FavoriteDS : IFavoriteDS
     {
         private readonly MoviesContext ctx = new MoviesContext();
-        public bool AddMovieFavorite(string userName, string movieId)
+        public string AddMovieFavorite(string userName, string movieId)
         {
             return ctx.AddMovieFavorite(userName, movieId);
         }
