@@ -37,6 +37,8 @@ namespace SubProject
 
             app.UseRouting();
 
+            app.UseFileServer();
+
             app.UseJwtAuth();
 
             app.UseEndpoints(endpoints =>

@@ -10,7 +10,6 @@ namespace SubProject.Controllers
 {
     [ApiController]
     [Route("api/movies")]
-    [Authorization]
     public class MovieController : ControllerBase
     {
         private readonly IMapper _mapper;
