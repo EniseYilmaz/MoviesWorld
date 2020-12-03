@@ -19,6 +19,6 @@ require(['knockout', 'text'], (ko) => {
     });
 });
 
-require(['knockout'], (ko) => {
-    ko.applyBindings({});
+require(['knockout', 'viewModel'], (ko, vm) => {
+    ko.applyBindings(vm);
 });
