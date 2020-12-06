@@ -17,6 +17,11 @@ require(['knockout', 'text'], (ko) => {
         viewModel: { require: "components/search/search" },
         template: { require: "text!components/search/search.html" }
     });
+
+    ko.components.register("register", {
+        viewModel: { require: "components/register/register" },
+        template: { require: "text!components/register/register.html" }
+    });
 });
 
 require(['knockout', 'viewModel'], (ko, vm) => {
