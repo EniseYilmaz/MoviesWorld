@@ -6,7 +6,35 @@
             .then(callback);
     }
 
+    let register = (values, callback) => {
+        fetch('api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(values)
+        })
+            .then(response => response.json())
+            .then(callback);
+    }
+
+    let login = (values, callback) => {
+        fetch('api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(values)
+        })
+            .then(response => response.json())
+            .then(callback);
+    }
+
     return {
-        getMovies
+        getMovies,
+        register,
+        login
     }
 });
