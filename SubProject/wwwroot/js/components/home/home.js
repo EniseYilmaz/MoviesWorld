@@ -1,9 +1,14 @@
 ﻿define([], () => {
-    return function () {
+    return function (params) {
         let name = "Home";
-        //debugger;
+
+        let login = () => {
+            console.log(params.isLoggedIn());
+        }
+
         return {
-            name
+            name,
+            login
         }
     }
 });

@@ -19,8 +19,22 @@
             .then(callback);
     }
 
+    let login = (values, callback) => {
+        fetch('api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(values)
+        })
+            .then(response => response.json())
+            .then(callback);
+    }
+
     return {
         getMovies,
-        register
+        register,
+        login
     }
 });
