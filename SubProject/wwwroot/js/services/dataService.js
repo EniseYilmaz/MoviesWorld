@@ -1,9 +1,23 @@
 ﻿define([], () => {
 
+    let token;
+
+    var data = localStorage.getItem('auth');
+
+    if (data != undefined) {
+        token = JSON.parse(data);
+    }
+
+
     let getMovies = (callback) => {
-        fetch('api/movies')
-            .then(response => response.json())
-            .then(callback);
+        fetch('api/movies', {
+            headers: {
+                'Authorization': 'Bearer ' + token.token
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        })
+        .then(response => response.json())
+        .then(callback);
     }
 
     let register = (values, callback) => {
