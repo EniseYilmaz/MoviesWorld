@@ -1,7 +1,5 @@
 ﻿define(['knockout', 'dataservice'], (ko, ds) => {
 
-    let self = this;
-
     let selectedComponent = ko.observable('home');
     let key = ko.observable('auth');
     let isLoggedIn = ko.observable(false);
@@ -27,6 +25,14 @@
     let setAuthStorage = (data) => {
         var data = localStorage.setItem(key(), ko.toJSON(data));
     }
+
+
+    ds.checkIfAuthenticated(function (data) {
+        if (data) {
+            isLoggedIn(data);
+        }
+    });
+    
 
     return {
         changeContent,

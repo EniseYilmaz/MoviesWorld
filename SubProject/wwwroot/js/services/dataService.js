@@ -46,9 +46,21 @@
             .then(callback);
     }
 
+    let checkIfAuthenticated = (callback) => {
+        fetch('api/auth/checkifauthenticated', {
+            headers: {
+                'Authorization': 'Bearer ' + token.token
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        })
+            .then(response => response.json())
+            .then(callback);
+    }
+
     return {
         getMovies,
         register,
-        login
+        login,
+        checkIfAuthenticated
     }
 });
