@@ -1,0 +1,13 @@
+﻿<div>Titlescreen</div>
+<h3 data-bind="text : movie.originalTitle"></h3>
+<ul data-bind="foreach: OMDB">
+    <img data-bind="attr:{src: urlToPoster}">
+    <p data-bind="text: plot"></p>
+</ul>
+<h3>Starring</h3>
+<ul data-bind="foreach: actors">
+    <p data-bind="text: name"> </p> <p> as </p>
+    <li data-bind="text: characters"></li>
+</ul>
+
+

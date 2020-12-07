@@ -1,7 +1,6 @@
-﻿define([], () => {
+﻿define(['knockout', 'dataservice'], (ko, ds) => {
     return function () {
         let name = "Home";
-        //debugger;
         return {
             name
         }

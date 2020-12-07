@@ -1,5 +1,28 @@
-﻿<div>Search</div>
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Search</title>
+    <link href="css/style.css" rel="stylesheet" />
 
-<ul data-bind="foreach: movies">
-    <li data-bind="text: originalTitle"></li>
-</ul>
+</head>
+<body>
+
+    <ul data-bind="foreach: movies">
+        <div data-bind="text: originalTitle, click: $parent.showstuff"> </div>
+        <lightview params="id:id"></lightview>
+
+    </ul>
+
+  
+    
+</body>
+
+        
+
+
+
+
+
+</html>

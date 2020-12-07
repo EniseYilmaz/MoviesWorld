@@ -537,7 +537,7 @@ namespace DataServiceLib
             {
                 command.CommandType = CommandType.Text;
           
-                command.CommandText = $"Select * from title_principals where tconst = '{id}' order by ordering";
+                command.CommandText = $"Select * from title_principals natural left join name_basics where tconst = '{id}' order by ordering";
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
 
@@ -551,6 +551,7 @@ namespace DataServiceLib
                             var movieId = Convert.ToString(reader["tconst"]);
                             int ordering = Convert.ToInt32(reader["ordering"]);
                             string personid = Convert.ToString(reader["nconst"]);
+                            string name = Convert.ToString(reader["primaryname"]);
                             var category = Convert.ToString(reader["category"]);
                             string characters = Convert.ToString(reader["characters"]);
 
@@ -571,6 +572,7 @@ namespace DataServiceLib
                                 MovieId = movieId,
                                 Ordering = ordering,
                                 PersonId = personid,
+                                Name = name,
                                 Category = category, 
                                 Characters = listOfNames
                             };
@@ -590,14 +592,17 @@ namespace DataServiceLib
 
         public OMBDdata GetOMDBData(string id)
         {
+            var data = new OMBDdata();
             using (var command = this.Database.GetDbConnection().CreateCommand())
             {
+                
                 command.CommandType = CommandType.Text;
-
                 command.CommandText = $"Select * from omdb_data where tconst = '{id}'";
+
+                
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
-
+                
                 using (var reader = command.ExecuteReader())
                 {
                     reader.Read();
@@ -608,22 +613,25 @@ namespace DataServiceLib
                         var awards = Convert.ToString(reader["awards"]);
                         var plot = Convert.ToString(reader["plot"]);
 
-                        var data = new OMBDdata()
+                        data = new OMBDdata()
                         {
                             Id = Id,
                             UrlToPoster = poster,
                             Awards = awards,
                             Plot = plot
                         };
-                        return data;
+                        
                     }
+                    
                 }
             }
-            return null;
+            return data;
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             //For title_basics table
             modelBuilder.Entity<TitleBasics>().ToTable("title_basics");
             modelBuilder.Entity<TitleBasics>().Property(x => x.Id).HasColumnName("tconst").HasColumnType("varchar");

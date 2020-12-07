@@ -4,7 +4,7 @@
         knockout: "lib/knockout/knockout-latest",
         text: "lib/require-text/text.min",
         dataservice: "services/dataService",
-        
+        viewModel: ""
     }
 });
 
@@ -18,18 +18,14 @@ require(['knockout', 'text'], (ko) => {
         viewModel: { require: "components/search/search" },
         template: { require: "text!components/search/search.html" }
     });
+});
+
+require(['knockout', 'text'], (ko) => {
     ko.components.register("titlescreen", {
         viewModel: { require: "components/titlescreen/titlescreen" },
         template: { require: "text!components/titlescreen/titlescreen.html" }
     });
-    ko.components.register("lightview", {
-        viewModel: { require: "components/lightview/lightview" },
-        template: { require: "text!components/lightview/lightview.html" }
-    });
-
 });
-
-
 
 
 
