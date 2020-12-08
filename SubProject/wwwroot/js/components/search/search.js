@@ -4,6 +4,7 @@
         let movies = ko.observableArray([]);
 
         ds.search(params.keyword(), function (data) { movies(data) });
+        ds.getMovies(function (data) { });
 
         //debugger;
         return {
