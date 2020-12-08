@@ -1,28 +1,22 @@
-﻿
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Search</title>
-    <link href="css/style.css" rel="stylesheet" />
 
-</head>
-<body>
+﻿<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Search</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Search results</li>
+                </ol>
+                <h3>We've found <span data-bind="text: movies().length"></span> search results.</h3>
+            </nav>
+        </div>
+    </div>
 
-    <ul data-bind="foreach: movies">
-        <div data-bind="text: originalTitle, click: $parent.showstuff"> </div>
-        <lightview params="id:id"></lightview>
+    <div class="row">
+        <div class="list-group" data-bind="foreach: movies">
+            <a href="" class="list-group-item list-group-item-action" data-bind="text: title"></a>
+        </div>
+    </div>
+    </div>
 
-    </ul>
-
-  
-    
-</body>
-
-        
-
-
-
-
-
-</html>

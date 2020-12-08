@@ -11,6 +11,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using SubProject.Attributes;
 
 namespace SubProject.Controllers
 {
@@ -97,5 +98,13 @@ namespace SubProject.Controllers
 
             return Ok(new { user.UserName, token });
 ;        }
+
+        [HttpGet("checkifauthenticated")]
+        [Authorization]
+        public IActionResult checkIfAuthenticated()
+        {
+            return Ok(true);
+
+        }
     }
 }
