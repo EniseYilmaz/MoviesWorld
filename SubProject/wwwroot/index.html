@@ -14,11 +14,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <!--<li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-    </li>-->
                 <li class="nav-item">
                     <a class="nav-link" data-bind="click: changeContent('home')">Home</span></a>
                 </li>
@@ -31,6 +29,7 @@
                 <li data-bind="visible: isLoggedIn()" class="nav-item">
                     <a class="nav-link" data-bind="click: logout()">Logout</a>
                 </li>
+
             </ul>
             <form class="form-inline my-2 my-lg-0" data-bind="submit: search">
                 <input class="form-control mr-sm-2" minlength="3" type="search" data-bind="value: keyword" aria-label="Search" required>
@@ -39,7 +38,9 @@
         </div>
     </nav>
 
+
     <div data-bind="component: {name: selectedComponent, params: currentParams}"></div>
+
 
     <script data-main="js/main.js" src="js/lib/require.js/require.min.js"></script>
 </body>

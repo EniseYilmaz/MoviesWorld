@@ -1,12 +1,13 @@
 ﻿define(['knockout', 'dataservice'], (ko, ds) => {
 
     let selectedComponent = ko.observable('home');
+
     let key = ko.observable('auth');
     let isLoggedIn = ko.observable(false);
     let keyword = ko.observable('');
     let currentParams = ko.observable({});
-
     let changeContent = (component) => {
+        
         selectedComponent(component);
         if (component === 'search') {
             currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, keyword: keyword});
@@ -33,6 +34,7 @@
         var data = localStorage.setItem(key(), ko.toJSON(data));
     }
 
+
     let search = () => {
         changeContent('search');
     }
@@ -51,9 +53,9 @@
             changeContent('login');
         }
     });
-    
 
     return {
+       
         changeContent,
         selectedComponent,
         keyword,
@@ -62,4 +64,5 @@
         isLoggedIn,
         logout
     };
+
 });
