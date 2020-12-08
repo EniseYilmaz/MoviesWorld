@@ -1,18 +1,22 @@
 ﻿define([], () => {
 
-    let token = '';
+    let getToken = () => {
+        let data = localStorage.getItem('auth');
+        
+        if (data != undefined && data != '') {
 
-    var data = localStorage.getItem('auth');
+            let jsondata = JSON.parse(data);
+            return 'Bearer ' + jsondata.token;
+        }
+    };
 
-    if (data != undefined) {
-        token = JSON.parse(data).token;
-    }
+    
 
 
     let getMovies = (callback) => {
         fetch('api/movies', {
             headers: {
-                'Authorization': 'Bearer ' + token
+                'Authorization': getToken()
             }
         })
             .then(response => response.json())
@@ -37,7 +41,7 @@
     let getOMDB = (id, callback) => {
         fetch(`api/movies/OMDB/${id}`, {
             headers: {
-                'Authorization': 'Bearer ' + token
+                'Authorization': getToken()
             }
         })
             .then(response => response.json())
@@ -47,7 +51,7 @@
     let getActorsForMovie = (id, callback) => {
         fetch(`api/actors/${id}`, {
             headers: {
-                'Authorization': 'Bearer ' + token
+                'Authorization': getToken()
             }
         })
             .then(response => response.json())
@@ -57,7 +61,7 @@
     let getMovie = (id , callback) => {
         fetch(`api/movies/${id}`, {
             headers: {
-                'Authorization': 'Bearer ' + token
+                'Authorization': getToken()
             }
         })
             .then(response => response.json())
@@ -69,7 +73,7 @@
     let getRating = (id, callback) => {
         fetch(`api/rating/${id}`, {
             headers: {
-                'Authorization': 'Bearer ' + token
+                'Authorization': getToken()
             }
         })
             .then(response => response.json())
@@ -102,13 +106,10 @@
     let checkIfAuthenticated = (callback) => {
         fetch('api/auth/checkifauthenticated', {
             headers: {
-                'Authorization': 'Bearer ' + token
-                    }
+                'Authorization': getToken()
+              }
             })
             .then(response => response.json())
-            .then(error => {
-                handleError(error);
-            })
             .then(callback);
     }
 
