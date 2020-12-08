@@ -1,9 +1,10 @@
 ﻿define(['knockout', 'dataservice'], (ko, ds) => {
-    return function () {
-        let name = "Home";
+    return function (params) {
+        let name = "Search";
         let movies = ko.observableArray([]);
 
-        ds.getMovies(function (data) { movies(data) });
+        ds.search(params.keyword(), function (data) { movies(data) });
+
         //debugger;
         return {
             movies

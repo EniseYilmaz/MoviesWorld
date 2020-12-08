@@ -10,7 +10,6 @@ namespace SubProject.DataServices
 {
     [ApiController]
     [Route("api/search")]
-    [Authorization]
     public class SearchController : ControllerBase
     {
 

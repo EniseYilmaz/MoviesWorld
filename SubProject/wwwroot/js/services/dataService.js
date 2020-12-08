@@ -33,6 +33,12 @@
             .then(callback);
     }
 
+    let search = (keyword, callback) => {
+        fetch('api/search/' + keyword)
+            .then(response => response.json())
+            .then(callback);
+    }
+
     let login = (values, callback) => {
         fetch('api/auth/login', {
             method: 'POST',
@@ -61,6 +67,7 @@
         getMovies,
         register,
         login,
-        checkIfAuthenticated
+        checkIfAuthenticated,
+        search
     }
 });
