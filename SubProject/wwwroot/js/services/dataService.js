@@ -1,19 +1,18 @@
 ﻿define([], () => {
 
-    let token;
+    let token = '';
 
     var data = localStorage.getItem('auth');
 
     if (data != undefined) {
-        token = JSON.parse(data);
+        token = JSON.parse(data).token;
     }
 
 
     let getMovies = (callback) => {
         fetch('api/movies', {
             headers: {
-                'Authorization': 'Bearer ' + token.token
-                // 'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + token
             }
         })
             .then(response => response.json())
@@ -28,7 +27,6 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(values)
         })
@@ -37,19 +35,31 @@
     }
     
     let getOMDB = (id, callback) => {
-        fetch(`api/movies/OMDB/${id}`)
+        fetch(`api/movies/OMDB/${id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
             .then(response => response.json())
             .then(callback);
     }
 
     let getActorsForMovie = (id, callback) => {
-        fetch(`api/actors/${id}`)
+        fetch(`api/actors/${id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
             .then(response => response.json())
             .then(callback);
     }
 
     let getMovie = (id , callback) => {
-        fetch(`api/movies/${id}`)
+        fetch(`api/movies/${id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
             .then(response => response.json())
             .then(callback);
         return callback;
@@ -57,7 +67,11 @@
     }
 
     let getRating = (id, callback) => {
-        fetch(`api/rating/${id}`)
+        fetch(`api/rating/${id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
             .then(response => response.json())
             .then(callback);
         return callback;
@@ -78,7 +92,6 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(values)
         })
@@ -89,10 +102,9 @@
     let checkIfAuthenticated = (callback) => {
         fetch('api/auth/checkifauthenticated', {
             headers: {
-                'Authorization': 'Bearer ' + token.token
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            }
-        })
+                'Authorization': 'Bearer ' + token
+                    }
+            })
             .then(response => response.json())
             .then(error => {
                 handleError(error);
@@ -111,7 +123,7 @@
         getRating,
         getMovie,
         getActorsForMovie,
-        getOMDB
+        getOMDB,
         getMovies,
         register,
         login,
