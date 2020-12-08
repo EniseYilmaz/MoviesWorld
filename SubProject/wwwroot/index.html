@@ -23,9 +23,6 @@
                     <a class="nav-link" data-bind="click: changeContent('home')">Home</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bind="click: changeContent('search')">Search</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" data-bind="click: changeContent('register')">Register</a>
                 </li>
                 <li class="nav-item">
@@ -46,14 +43,14 @@
                     <a class="nav-link disabled" href="#">Disabled</a>
                 </li>-->
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" data-bind="click: changeContent('search')">Search</button>
+            <form class="form-inline my-2 my-lg-0" data-bind="submit: search">
+                <input class="form-control mr-sm-2" minlength="3" type="search" data-bind="value: keyword" aria-label="Search" required>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
     </nav>
 
-    <div data-bind="component: {name: selectedComponent, params: {isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage}}"></div>
+    <div data-bind="component: {name: selectedComponent, params: currentParams}"></div>
 
     <script data-main="js/main.js" src="js/lib/require.js/require.min.js"></script>
 </body>

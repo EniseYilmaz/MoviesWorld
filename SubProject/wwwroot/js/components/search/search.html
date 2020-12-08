@@ -7,25 +7,14 @@
                     <li class="breadcrumb-item"><a href="#">Search</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Search results</li>
                 </ol>
-                <h3>We've found 10 search results.</h3>
+                <h3>We've found <span data-bind="text: movies().length"></span> search results.</h3>
             </nav>
         </div>
     </div>
 
     <div class="row">
         <div class="list-group" data-bind="foreach: movies">
-            <a href="#" class="list-group-item list-group-item-action" data-bind="text: originalTitle"></a>
+            <a href="" class="list-group-item list-group-item-action" data-bind="text: title"></a>
         </div>
     </div>
-        <div class="row">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
-        </div>
     </div>
