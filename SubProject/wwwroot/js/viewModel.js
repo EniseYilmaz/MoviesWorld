@@ -9,9 +9,9 @@
     let changeContent = (component) => {
         selectedComponent(component);
         if (component === 'search') {
-            currentParams({ isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, keyword: keyword});
+            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, keyword: keyword});
         } else {
-            currentParams({ isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
+            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
         }
     }
 
@@ -37,10 +37,18 @@
         changeContent('search');
     }
 
+    let logout = () => {
+        setAuthStorage('');
+        isLoggedIn(false);
+        changeContent('login');
+    }
+
 
     ds.checkIfAuthenticated(function (data) {
-        if (data) {
+        if (data === true) {
             isLoggedIn(data);
+        } else if (data === undefined) {
+            changeContent('login');
         }
     });
     
@@ -50,6 +58,8 @@
         selectedComponent,
         keyword,
         currentParams,
-        search
+        search,
+        isLoggedIn,
+        logout
     };
 });

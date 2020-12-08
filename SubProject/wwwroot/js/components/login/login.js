@@ -22,6 +22,7 @@
                     error("");
                     params.setAuthStorage(data);
                     params.setIsLoggedIn(true);
+                    params.changeContent('home');
                 }
             });
         } 

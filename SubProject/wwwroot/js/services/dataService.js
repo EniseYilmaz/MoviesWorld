@@ -16,8 +16,11 @@
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             }
         })
-        .then(response => response.json())
-        .then(callback);
+            .then(response => response.json())
+            .then(error => {
+                handleError(error);
+            })
+            .then(callback);
     }
 
     let register = (values, callback) => {
@@ -60,7 +63,17 @@
             }
         })
             .then(response => response.json())
+            .then(error => {
+                handleError(error);
+            })
             .then(callback);
+    }
+
+    let handleError = (error) => {
+        if (error.status === 401) {
+            localStorage.setItem('auth', '');
+            alert('Your login has expired, please proceed to login.')
+        }
     }
 
     return {
