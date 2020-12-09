@@ -120,7 +120,9 @@
         }
     }
 
+
     return {
+        
         getRating,
         getMovie,
         getActorsForMovie,
