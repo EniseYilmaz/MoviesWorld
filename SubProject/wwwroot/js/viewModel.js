@@ -6,14 +6,20 @@
     let isLoggedIn = ko.observable(false);
     let keyword = ko.observable('');
     let currentParams = ko.observable({});
-    let changeContent = (component) => {
+    let changeContent = (component, titleid) => {
+        console.log("component: " + component);
+        console.log("titleid: " + titleid);
         
-        selectedComponent(component);
         if (component === 'search') {
-            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, keyword: keyword});
-        } else {
-            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
+            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, keyword: keyword });
+        } else if (component === 'titlescreen'){
+            console.log("entering titlescreen");
+            currentParams({ titleid: titleid, changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
+        }else {
+         currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
         }
+        selectedComponent(component);
+        
     }
 
     let setIsLoggedIn = (value) => {

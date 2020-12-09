@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" data-bind="click: changeContent('home')">Home</span></a>
+                    <a class="nav-link" data-bind="click: changeContent('home')">Home</a>
                 </li>
                 <li data-bind="hidden: isLoggedIn()" class="nav-item">
                     <a class="nav-link" data-bind="click: changeContent('register')">Register</a>
@@ -29,6 +29,7 @@
                 <li data-bind="visible: isLoggedIn()" class="nav-item">
                     <a class="nav-link" data-bind="click: logout()">Logout</a>
                 </li>
+                
 
             </ul>
             <form class="form-inline my-2 my-lg-0" data-bind="submit: search">
