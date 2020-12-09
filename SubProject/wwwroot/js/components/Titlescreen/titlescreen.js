@@ -14,7 +14,11 @@
             ds.getOMDB(params.id, function (data) {
                 OMDB(data)
                 console.log(data);
+                ds.getActors(params.id, function (data) {
+                    actors(data)
+                    console.log(data);
 
+                });
             });
         });
 
