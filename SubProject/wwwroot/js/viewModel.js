@@ -6,6 +6,9 @@
     let key = ko.observable('auth');
     let isLoggedIn = ko.observable(false);
     let keyword = ko.observable('');
+
+    let functionlimiter = ko.observable(true);
+
     let currentParams = ko.observable({});
     let changeContent = (component, titleid) => {
         console.log("component: " + component);
@@ -24,10 +27,20 @@
     }
 
     let changeQuickComponent = (component, titleid) => {
-        console.log("component: " + component);
-        console.log("id: " + titleid);
-        quickComponentParams({ titleid: titleid });
-        quickComponent(component, titleid);
+        if (functionlimiter()) {
+            functionlimiter(false);
+            console.log("component: " + component);
+            console.log("id: " + titleid);
+            quickComponentParams({ titleid: titleid });
+            quickComponent(component, titleid);
+            setTimeout(function () {
+                functionlimiter(true);
+                console.log("done waiting")
+            }, 100);
+        } else {
+            console.log("still waiting for previous response")
+        }
+        
     }
 
     let setIsLoggedIn = (value) => {

@@ -18,8 +18,7 @@
             console.log(info() + " showing title " + title);
             console.log("waiting..")
             setTimeout(function () {
-                info(true);
-
+                info(true)
                 console.log("done waiting")
             }, 500);
             
