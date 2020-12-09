@@ -8,3 +8,4 @@
     <titlescreen params="id: 'tt7768840'"></titlescreen>
 
     <lightview data-bind="text: {id:selectedTitle}"></lightview>
+<lightview params="titleid:id , infocheck:$parent.info()"></lightview>

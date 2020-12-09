@@ -1,7 +1,8 @@
 ﻿define(['knockout', 'dataservice'], (ko, ds) => {
 
     let selectedComponent = ko.observable('home');
-
+    let quickComponent = ko.observable('lightview');
+    let quickComponentParams = ko.observable({});
     let key = ko.observable('auth');
     let isLoggedIn = ko.observable(false);
     let keyword = ko.observable('');
@@ -20,6 +21,13 @@
         }
         selectedComponent(component);
         
+    }
+
+    let changeQuickComponent = (component, titleid) => {
+        console.log("component: " + component);
+        console.log("id: " + titleid);
+        quickComponentParams({ titleid: titleid });
+        quickComponent(component, titleid);
     }
 
     let setIsLoggedIn = (value) => {
@@ -61,7 +69,9 @@
     });
 
     return {
-       
+        changeQuickComponent,
+        quickComponentParams,
+        quickComponent,
         changeContent,
         selectedComponent,
         keyword,
