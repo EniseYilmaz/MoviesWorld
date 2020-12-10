@@ -1,1 +1,12 @@
-﻿
+﻿.navbar-light{
+    background-color: #1b1e21 !important;
+   
+  
+}
+.navbar-brand{
+    font-size: 2rem !important;
+    color: #1c7430 !important;
+}
+.nav-link{
+    color: #1c7430 !important;
+}
