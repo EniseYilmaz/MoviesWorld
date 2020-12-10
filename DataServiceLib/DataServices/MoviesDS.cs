@@ -27,5 +27,10 @@ namespace DataServiceLib.DataServices
 
             return ctx.GetOMDBData(id);
         }
+
+        public IList<PopularMovies> GetPopularMovies()
+        {
+            return ctx.PopularMovies();
+        }
     }
 }

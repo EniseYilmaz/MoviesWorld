@@ -26,6 +26,8 @@
             .then(callback);
     }
 
+ 
+
     let register = (values, callback) => {
         fetch('api/auth/register', {
             method: 'POST',
@@ -91,6 +93,16 @@
             .then(callback);
     }
 
+    let getPopularMovies = (callback) => {
+        fetch('api/movies/popular', {
+            headers: {
+                'Authorization': getToken()
+            }
+        })
+            .then(response => response.json())
+            .then(callback);
+    }
+
     let login = (values, callback) => {
         fetch('api/auth/login', {
             method: 'POST',
@@ -114,10 +126,10 @@
     }
 
     let handleError = (error) => {
-        if (error.status === 401) {
-            localStorage.setItem('auth', '');
-            alert('Your login has expired, please proceed to login.')
-        }
+        //if (error.status === 401) {
+        //    localStorage.setItem('auth', '');
+        //    alert('Your login has expired, please proceed to login.')
+        //}
     }
 
 
@@ -131,7 +143,8 @@
         register,
         login,
         checkIfAuthenticated,
-        search
+        search,
+        getPopularMovies
     }
         
     

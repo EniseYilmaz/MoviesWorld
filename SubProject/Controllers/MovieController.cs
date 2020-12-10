@@ -59,5 +59,12 @@ namespace SubProject.Controllers
             return Ok(omdbdata);
         }
 
+        [HttpGet("popular")]
+        public IActionResult PopularMovies()
+        {
+            var data = ds.GetPopularMovies();
+            return Ok(data);
+        }
+
     }
 }

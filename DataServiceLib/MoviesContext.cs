@@ -229,6 +229,44 @@ namespace DataServiceLib
             }
         }
 
+        //For the popular movies
+        public IList<PopularMovies> PopularMovies()
+        {
+            var movies = new List<PopularMovies>();
+
+            using (var command = this.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "show_popular_movies";
+
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var Id = Convert.ToString(reader["id"]);
+                        var Title = Convert.ToString(reader["title"]);
+                        float Rating = Convert.ToInt32(reader["rating"]);
+                        int NumVotes = Convert.ToInt32(reader["numvotes"]);
+                        var Poster = Convert.ToString(reader["poster"]);
+
+                        movies.Add(new PopularMovies()
+                        {
+                            Id = Id,
+                            Title = Title,
+                            Rating = Rating,
+                            NumOfVotes = NumVotes,
+                            Poster = Poster
+                        });
+                    }
+                }
+
+                return movies;
+            }
+        }
+
         //For add movie to bookmark
         public bool AddMovieBookMark(string userName, string movieId )
         {

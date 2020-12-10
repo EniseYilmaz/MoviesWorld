@@ -4,6 +4,7 @@
     let quickComponent = ko.observable('lightview');
     let quickComponentParams = ko.observable({});
     let key = ko.observable('auth');
+    let userName = ko.observable('Unknown');
     let isLoggedIn = ko.observable(false);
     let keyword = ko.observable('');
 
@@ -11,16 +12,13 @@
 
     let currentParams = ko.observable({});
     let changeContent = (component, titleid) => {
-        console.log("component: " + component);
-        console.log("titleid: " + titleid);
         
         if (component === 'search') {
             currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, keyword: keyword });
         } else if (component === 'titlescreen'){
-            console.log("entering titlescreen");
             currentParams({ titleid: titleid, changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
         }else {
-         currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
+            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, setUserName: setUserName });
         }
         selectedComponent(component);
         
@@ -29,16 +27,12 @@
     let changeQuickComponent = (component, titleid) => {
         if (functionlimiter()) {
             functionlimiter(false);
-            console.log("component: " + component);
-            console.log("id: " + titleid);
             quickComponentParams({ titleid: titleid });
             quickComponent(component, titleid);
             setTimeout(function () {
                 functionlimiter(true);
-                console.log("done waiting")
             }, 100);
         } else {
-            console.log("still waiting for previous response")
         }
         
     }
@@ -59,6 +53,11 @@
     //set auth to local storage
     let setAuthStorage = (data) => {
         var data = localStorage.setItem(key(), ko.toJSON(data));
+    }
+
+    //set auth to local storage
+    let setUserName = (data) => {
+        userName(data.userName);
     }
 
 
@@ -91,7 +90,8 @@
         currentParams,
         search,
         isLoggedIn,
-        logout
+        logout,
+        userName
     };
 
 });

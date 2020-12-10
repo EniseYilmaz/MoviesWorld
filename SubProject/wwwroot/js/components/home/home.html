@@ -1,40 +1,15 @@
-﻿<style>
-    .tooltip {
-        position: relative;
-        display: inline-block;
-        border-bottom: 1px dotted black;
-    }
-
-    .tooltip .tooltiptext {
-        visibility: hidden;
-        width: 120px;
-        background-color: black;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 0;
-        /* Position the tooltip */
-        position: absolute;
-        z-index: 1;
-    }
-
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-    }
-</style>
-<p>Move the mouse over the text below:</p>
-
-<div class="tooltip">
-    Hover over measdasdasdsa
-    <span class="tooltiptext">
-        <img src="https://secure.gravatar.com/avatar/655f4cf189cbb2349e5bad3314c4f3bc?s=114&d=mm&r=g" alt="" />
-    </span>
+﻿<div class="container">
+    <h3 class="p-4">Popular Movies</h3>
+    <div class="row" data-bind="foreach: popularMovies">
+        <div class="col-md-4  pt-4" >
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top crop" data-bind="attr:{src: poster}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" style="height: 50px;" data-bind="text: title"></h5>
+                    <p class="card-text">Rating: <span data-bind="text: rating"></span> <br/> Votes: <span data-bind="text: numOfVotes"></span></p>
+                    <a href="#" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div>Home</div>
-<body>
-
-    <div data-bind="event: { mouseover: function() {$root.changeQuickComponent('lightview', 'tt5348172')} }"> 123123</div>
-
-    <div data-bind="component: {name: $root.quickComponent, params: $root.quickComponentParams}"></div>
-</body> 
