@@ -10,3 +10,6 @@
 .nav-link{
     color: #1c7430 !important;
 }
+.nav-link:hover{
+    color: #ffffff !important;
+}
