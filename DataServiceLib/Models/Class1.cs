@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DataServiceLib.Models
+﻿namespace DataServiceLib.Models
 {
     public class OMBDdata
     {
