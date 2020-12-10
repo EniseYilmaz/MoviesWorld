@@ -1,1 +1,14 @@
 ﻿
+.searchrow {
+    margin-right: 2%;
+    width: 49%;
+    float: left;
+}
+.lightview {
+    border-bottom-left-radius: 10px;
+    position: fixed;
+    right: 30px;
+    width:300px;
+    width: 49%;
+    float: left;
+}

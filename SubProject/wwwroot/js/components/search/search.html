@@ -1,9 +1,4 @@
 
-<style>
-    .lightview {
-        position: fixed;
-    }
-</style>
 
 ﻿<div class="container">
     <div class="row">
@@ -19,8 +14,7 @@
         </div>
     </div>
 
-    <div class="row">
-
+    <div class="searchrow">
         <div class="list-group" data-bind="foreach: movies">
             <a href="" class="list-group-item list-group-item-action"
                data-bind="text: title,
@@ -28,8 +22,7 @@
                event: { mouseover: function() {$root.changeQuickComponent('lightview', id) }  }">
             </a>
         </div>
-
     </div>
-    <div class= "lightview "data-bind="component: {name: $root.quickComponent, params: $root.quickComponentParams}"></div>
+    <div class="lightview " data-bind="component: {name: $root.quickComponent, params: $root.quickComponentParams}"></div>
 </div>
 
