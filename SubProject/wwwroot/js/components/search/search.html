@@ -1,5 +1,4 @@
-
-﻿<div class="container">
+<div class="container">
     <div class="row">
         <div class="col">
             <nav aria-label="breadcrumb">
@@ -13,11 +12,12 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="list-group" data-bind="foreach: movies">
-            <a href="" class="list-group-item list-group-item-action" data-bind="text: title, click: $parent.showstuff"></a>
-            <lightview params="id:id"></lightview>
-        </div>
+    <div class="card col-md-3 col-sm-4 col-xs-6" data-bind="foreach: movies" style="width: 18rem;">
+        <a href="" class="list-group-item list-group-item-action" data-bind="text: title, click: $parent.showstuff"></a>
+        <lightview params="id:id"></lightview>
+
     </div>
-    </div>
+    
+    
+</div>
 
