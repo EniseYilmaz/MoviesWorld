@@ -1,19 +1,46 @@
 ﻿define(['knockout', 'dataservice'], (ko, ds) => {
 
     let selectedComponent = ko.observable('home');
-
+    let quickComponent = ko.observable('lightview');
+    let quickComponentParams = ko.observable({});
     let key = ko.observable('auth');
     let isLoggedIn = ko.observable(false);
     let keyword = ko.observable('');
+
+    let functionlimiter = ko.observable(true);
+
     let currentParams = ko.observable({});
-    let changeContent = (component) => {
+    let changeContent = (component, titleid) => {
+        console.log("component: " + component);
+        console.log("titleid: " + titleid);
         
-        selectedComponent(component);
         if (component === 'search') {
-            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, keyword: keyword});
-        } else {
-            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
+            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, keyword: keyword });
+        } else if (component === 'titlescreen'){
+            console.log("entering titlescreen");
+            currentParams({ titleid: titleid, changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
+        }else {
+         currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
         }
+        selectedComponent(component);
+        
+    }
+
+    let changeQuickComponent = (component, titleid) => {
+        if (functionlimiter()) {
+            functionlimiter(false);
+            console.log("component: " + component);
+            console.log("id: " + titleid);
+            quickComponentParams({ titleid: titleid });
+            quickComponent(component, titleid);
+            setTimeout(function () {
+                functionlimiter(true);
+                console.log("done waiting")
+            }, 100);
+        } else {
+            console.log("still waiting for previous response")
+        }
+        
     }
 
     let setIsLoggedIn = (value) => {
@@ -55,7 +82,9 @@
     });
 
     return {
-       
+        changeQuickComponent,
+        quickComponentParams,
+        quickComponent,
         changeContent,
         selectedComponent,
         keyword,

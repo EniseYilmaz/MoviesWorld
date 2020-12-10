@@ -1,5 +1,5 @@
-﻿<div>Titlescreen</div>
-<h3 data-bind="text : movie.originalTitle"></h3>
+﻿
+<h3 data-bind="text : movie().originalTitle"></h3>
 <ul data-bind="foreach: OMDB">
     <img data-bind="attr:{src: urlToPoster}">
     <p data-bind="text: plot"></p>

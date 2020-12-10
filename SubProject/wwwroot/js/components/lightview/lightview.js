@@ -1,12 +1,16 @@
 ﻿define(['knockout', 'dataservice'], (ko, ds) => {
     return function (params) {
-
+        let buttontext = ko.observable("More Info");
         let rating = ko.observableArray([]);
         let movie = ko.observableArray([]);
         let OMDB = ko.observableArray([]);
-        const titleid = params.id || "";
-        console.log(params.id);
-        let generatelightview = title => {
+        let infocheck = ko.observable(true);
+        console.log(infocheck());
+        const titleid = params.titleid;
+        console.log(titleid);
+
+        console.log("loaded light view");
+        setTimeout(() => {
             console.log("trying to generate view with :");
             console.log(titleid);
             ds.getMovie(titleid, function (data) {
@@ -22,12 +26,18 @@
                     });
                 });
             });
-        }
+        }, 400);
+        
+               
+            
 
-            
-            
+
+
+
         return {
-            generatelightview,
+            infocheck,
+            buttontext,
+            
             rating,
             movie,
             OMDB,
