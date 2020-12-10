@@ -1,5 +1,6 @@
 ﻿define([], () => {
 
+
     let getToken = () => {
         let data = localStorage.getItem('auth');
         
@@ -38,6 +39,16 @@
             .then(callback);
     }
     
+    let getSimilarMovies = (titlename, callback) => {
+        fetch(`api/movies/similar/${titlename}`, {
+            headers: {
+                'Authorization': getToken()
+            }
+        })
+            .then(response => response.json())
+            .then(callback);
+    }
+
     let getOMDB = (id, callback) => {
         fetch(`api/movies/OMDB/${id}`, {
             headers: {
@@ -122,7 +133,7 @@
 
 
     return {
-        
+        getSimilarMovies,
         getRating,
         getMovie,
         getActorsForMovie,

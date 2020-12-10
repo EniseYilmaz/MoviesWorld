@@ -6,8 +6,17 @@
 </ul>
 <h3>Starring</h3>
 <ul data-bind="foreach: actors">
-    <p data-bind="text: name"> </p> <p> as </p>
+    <p data-bind="text: name"> </p>
+    <p> as </p>
     <li data-bind="text: characters"></li>
 </ul>
+
+<div>Similar Titles</div>
+<div class="list-group" data-bind="foreach: similarmovies">
+    <a href="" class="list-group-item list-group-item-action"
+       data-bind="text: title, click: function() { $root.changeContent('titlescreen', id) }">
+    </a>
+</div>
+
 
 
