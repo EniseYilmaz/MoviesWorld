@@ -9,7 +9,7 @@ namespace DataServiceLib.DataServices
         IList<SimilarMovies> SimilarMovies(string movieTitle);
         TitleBasics GetMovie(string id);
         IList<TitleBasics> GetMovies(int page, int pagesize);
-        OMBDdata GetOMBDData(string id);
+        OMDBData GetOMBDData(string id);
         IList<PopularMovies> GetPopularMovies();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DataServiceLib.Models
 {
-    public class OMBDdata
+    public class OMDBData
     {
         public string Id { get; set; }
         public string UrlToPoster { get; set; }

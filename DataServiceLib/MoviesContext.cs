@@ -23,6 +23,11 @@ namespace DataServiceLib
         public DbSet<UsersFavorite> favorites { get; set; }
         public DbSet<BookmarkMovies> bookmarkMovies { get; set; }
         public DbSet<BookmarkActors> bookmarkActors { get; set; }
+        public DbSet<StringSearch> SearchResults { get; set; }
+        public DbSet<SimilarMovies> SimilarMovies { get; set; }
+        public DbSet<PopularActors> PopularActors { get; set; }
+        public DbSet<PopularMovies> PopularMovies { get; set; }
+        public DbSet<OMDBData> OMDBDatas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,377 +43,175 @@ namespace DataServiceLib
         }
 
         //For the string_search
-        public IList<StringSearch> Search(string keyword)
+        public IList<StringSearch> Search(string keyword, string userName)
         {
-            var searchResult = new List<StringSearch>();
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "string_search";
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("s", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = keyword });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("uname", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = "adam12" });
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var Id = Convert.ToString(reader["id"]);
-                        var Title = Convert.ToString(reader["title"]);
-
-                        searchResult.Add(new StringSearch()
-                        {
-                            Id = Id,
-                            Title = Title
-                        });
-                    }
-                }
-
-                return searchResult;
-            }
-        }
-
-        //For the exact_match
-        public IList<StringSearch> ExactSearch(string firstKeyword, string secondKeyword)
-        {
-            var searchResult = new List<StringSearch>();
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "exact_match";
-
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("firstkeyword", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = firstKeyword });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("secondkeyword", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = secondKeyword });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("uname", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = "adam12" });
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var Id = Convert.ToString(reader["id"]);
-                        var Title = Convert.ToString(reader["title"]);
-
-                        searchResult.Add(new StringSearch()
-                        {
-                            Id = Id,
-                            Title = Title
-                        });
-                    }
-                }
-
-                return searchResult;
-            }
-        }
-
-        //For the bestmatch
-        public IList<BestSearch> BestSearch(string firstKeyword, string secondKeyword, string thirdKeyword)
-        {
-            var searchResult = new List<BestSearch>();
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "bestmatch";
-
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("w1", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = firstKeyword });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("w2", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = secondKeyword });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("w3", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = thirdKeyword });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("uname", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = "adam12" });
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var Id = Convert.ToString(reader["id"]);
-                        var Title = Convert.ToString(reader["title"]);
-                        int? Rank = Convert.ToInt32(reader["rank"]);
-
-                        searchResult.Add(new BestSearch()
-                        {
-                            Id = Id,
-                            Rank = (int)Rank,
-                            Title = Title
-                        });
-                    }
-                }
-
-                return searchResult;
-            }
+            var result = this.SearchResults.FromSqlInterpolated($"select * from string_search({keyword}, {userName})");
+            return result.ToList();
         }
 
         //For the similar_movies
-        public IList<SimilarMovies> SimilarMovies(string movieTitle)
+        public IList<SimilarMovies> getSimilarMovies(string movieTitle)
         {
-            var similarMovies = new List<SimilarMovies>();
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "similar_movies";
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("movietitle", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = movieTitle });
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var Id = Convert.ToString(reader["id"]);
-                        var Title = Convert.ToString(reader["title"]);
-                        var Genres = Convert.ToString(reader["genres"]);
-                        var StartYear = Convert.ToString(reader["startyear"]);
-
-                        similarMovies.Add(new SimilarMovies()
-                        {
-                            Id = Id,
-                            Title = Title,
-                            Genres = Genres,
-                            StartYear = StartYear
-                        });
-                    }
-                }
-
-                return similarMovies;
-            }
+            var result = this.SimilarMovies.FromSqlInterpolated($"select * from similar_movies({movieTitle})");
+            return result.ToList();
         }
 
         //For the popular actors
-        public IList<PopularActors> PopularActors()
+        public IList<PopularActors> getPopularActors()
         {
-            var actors = new List<PopularActors>();
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "show_popular_actors";
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var Id = Convert.ToString(reader["id"]);
-                        var Name = Convert.ToString(reader["name"]);
-                        float Rating = Convert.ToInt32(reader["rating"]);
-                        int NumVotes = Convert.ToInt32(reader["numvotes"]);
-
-                        actors.Add(new PopularActors()
-                        {
-                            Id = Id,
-                            Name = Name,
-                            Rating = Rating,
-                            NumOfVotes = NumVotes
-                        });
-                    }
-                }
-
-                return actors;
-            }
+            var result = this.PopularActors.FromSqlInterpolated($"select * from show_popular_actors()");
+            return result.ToList();
         }
 
         //For the popular movies
-        public IList<PopularMovies> PopularMovies()
+        public IList<PopularMovies> getPopularMovies()
         {
-            var movies = new List<PopularMovies>();
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "show_popular_movies";
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var Id = Convert.ToString(reader["id"]);
-                        var Title = Convert.ToString(reader["title"]);
-                        float Rating = Convert.ToInt32(reader["rating"]);
-                        int NumVotes = Convert.ToInt32(reader["numvotes"]);
-                        var Poster = Convert.ToString(reader["poster"]);
-
-                        movies.Add(new PopularMovies()
-                        {
-                            Id = Id,
-                            Title = Title,
-                            Rating = Rating,
-                            NumOfVotes = NumVotes,
-                            Poster = Poster
-                        });
-                    }
-                }
-
-                return movies;
-            }
+            var result = this.PopularMovies.FromSqlInterpolated($"select * from show_popular_movies()");
+            return result.ToList();
         }
 
-        //For add movie to bookmark
+        //For add movie to bookmark add_to_bookmark_movie
         public bool AddMovieBookMark(string userName, string movieId )
         {
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
+            var connection = (NpgsqlConnection)this.Database.GetDbConnection();
+            if (connection.State != ConnectionState.Open)
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "add_to_bookmark_movie";
-
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = userName });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = movieId });
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                var reader = command.ExecuteScalar();
-
-
-                return (bool)reader;
+                connection.Open();
             }
+
+            var command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "add_to_bookmark_movie";
+
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = userName });
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = movieId });
+
+
+            var reader = command.ExecuteScalar();
+
+            return (bool)reader;
         }
 
         //For remove movie from bookmark
         public bool RemoveMovieBookMark(string userName, string movieId)
         {
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
+            var connection = (NpgsqlConnection)this.Database.GetDbConnection();
+            if (connection.State != ConnectionState.Open)
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "remove_from_bookmark_movie";
-
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = userName });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = movieId });
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                var reader = command.ExecuteScalar();
-
-
-                return (bool)reader;
+                connection.Open();
             }
+
+            var command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "remove_from_bookmark_movie";
+
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = userName });
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = movieId });
+
+
+            var reader = command.ExecuteScalar();
+
+            return (bool)reader;
         }
 
         //For add name to bookmark
         public bool AddNameBookMark(string userName, string personId)
         {
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
+            var connection = (NpgsqlConnection)this.Database.GetDbConnection();
+            if (connection.State != ConnectionState.Open)
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "add_to_bookmark_names";
-
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = userName });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = personId });
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                var reader = command.ExecuteScalar();
-
-
-                return (bool)reader;
+                connection.Open();
             }
+
+            var command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "add_to_bookmark_names";
+
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = userName });
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = personId });
+
+
+            var reader = command.ExecuteScalar();
+
+            return (bool)reader;
         }
 
         //For remove name from bookmark
         public bool RemoveNameBookMark(string userName, string personId)
         {
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
+            var connection = (NpgsqlConnection)this.Database.GetDbConnection();
+            if (connection.State != ConnectionState.Open)
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "remove_from_bookmark_names";
-
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = userName });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = personId });
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                var reader = command.ExecuteScalar();
-
-
-                return (bool)reader;
+                connection.Open();
             }
+
+            var command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "remove_from_bookmark_names";
+
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = userName });
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = personId });
+
+
+            var reader = command.ExecuteScalar();
+
+            return (bool)reader;
         }
 
         //For add movie to fav
         public string AddMovieFavorite(string userName, string movieId)
         {
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
+            var connection = (NpgsqlConnection)this.Database.GetDbConnection();
+            if (connection.State != ConnectionState.Open)
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "add_to_fav";
-
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = userName });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = movieId });
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                var reader = command.ExecuteScalar();
-
-
-                return reader.ToString();
+                connection.Open();
             }
+
+            var command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "add_to_fav";
+
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = userName });
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = movieId });
+
+
+            var reader = command.ExecuteScalar();
+
+            return reader.ToString();
         }
 
         //For remove movie from fav
         public bool RemoveMovieFavorite(string userName, string movieId)
         {
-
-            using (var command = this.Database.GetDbConnection().CreateCommand())
+            var connection = (NpgsqlConnection)this.Database.GetDbConnection();
+            if (connection.State != ConnectionState.Open)
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "remove_from_fav_movie";
-
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = userName });
-                command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
-                { Value = movieId });
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
-                var reader = command.ExecuteScalar();
-
-
-                return (bool)reader;
+                connection.Open();
             }
+
+            var command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "remove_from_fav_movie";
+
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputusername", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = userName });
+            command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
+            { Value = movieId });
+
+
+            var reader = command.ExecuteScalar();
+
+            return (bool)reader;
         }
 
 
@@ -416,8 +219,13 @@ namespace DataServiceLib
         public bool AddMovieRating(MovieRatingDto ratingDto)
         {
 
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
+                var connection = (NpgsqlConnection)this.Database.GetDbConnection();
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                var command = connection.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "rating_function_titles";
 
@@ -428,22 +236,23 @@ namespace DataServiceLib
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Integer)
                 { Value = ratingDto.Rating });
 
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
                 var reader = command.ExecuteScalar();
 
 
                 return (bool)reader;
-            }
+            
         }
 
         //For remove movie rating
         public bool RemoveMovieRating(MovieRatingDto ratingDto)
         {
+                var connection = (NpgsqlConnection)this.Database.GetDbConnection();
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
 
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
+                var command = connection.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "remove_user_rating";
 
@@ -451,16 +260,11 @@ namespace DataServiceLib
                 { Value = ratingDto.UserName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputtconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = ratingDto.MovieId });
-                
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
 
                 var reader = command.ExecuteScalar();
 
-
                 return (bool)reader;
-            }
+            
         }
 
 
@@ -468,9 +272,13 @@ namespace DataServiceLib
         //For rating an actor rating
         public bool AddActorRating(ActorRatingDto actorRatingDto)
         {
+                var connection = (NpgsqlConnection)this.Database.GetDbConnection();
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
 
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
+                var command = connection.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "rating_function_names";
 
@@ -481,22 +289,22 @@ namespace DataServiceLib
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputrating", NpgsqlTypes.NpgsqlDbType.Integer)
                 { Value = actorRatingDto.Rating });
 
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-
                 var reader = command.ExecuteScalar();
 
-
                 return (bool)reader;
-            }
         }
 
         //For remove actor rating
         public bool RemoveActorRating(ActorRatingDto actorRatingDto)
         {
 
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
+                var connection = (NpgsqlConnection)this.Database.GetDbConnection();
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                var command = connection.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "remove_user_rating_names";
 
@@ -504,16 +312,10 @@ namespace DataServiceLib
                 { Value = actorRatingDto.UserName });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("inputnconst", NpgsqlTypes.NpgsqlDbType.Varchar)
                 { Value = actorRatingDto.PersonId });
-                
-
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
 
                 var reader = command.ExecuteScalar();
 
-
                 return (bool)reader;
-            }
         }
 
         //returns 0 if no rating found...
@@ -565,7 +367,7 @@ namespace DataServiceLib
                 }
             }
 
-               
+
         }
 
         public IList<Title_Principals> GetPersonal(string id)
@@ -574,7 +376,7 @@ namespace DataServiceLib
             using (var command = this.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandType = CommandType.Text;
-          
+
                 command.CommandText = $"Select * from title_principals natural left join name_basics where tconst = '{id}' order by ordering";
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
@@ -595,7 +397,7 @@ namespace DataServiceLib
 
                             characters = characters.Trim(new Char[] { '[', ']' });
 
-                            var listOfNames= new List<string>(); 
+                            var listOfNames = new List<string>();
                             //split string up into list, remove excess chars. 
                             foreach (string xc in new List<string>(characters.Split(',')))
                             {
@@ -611,13 +413,13 @@ namespace DataServiceLib
                                 Ordering = ordering,
                                 PersonId = personid,
                                 Name = name,
-                                Category = category, 
+                                Category = category,
                                 Characters = listOfNames
                             };
                             personallist.Add(titleprincipal);
 
                         }
-                        
+
 
                     }
 
@@ -625,45 +427,6 @@ namespace DataServiceLib
             }
 
             return personallist;
-
-        }
-
-        public OMBDdata GetOMDBData(string id)
-        {
-            var data = new OMBDdata();
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
-                
-                command.CommandType = CommandType.Text;
-                command.CommandText = $"Select * from omdb_data where tconst = '{id}'";
-
-                
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
-                
-                using (var reader = command.ExecuteReader())
-                {
-                    reader.Read();
-                    if (reader.HasRows)
-                    {
-                        var Id = Convert.ToString(reader["tconst"]);
-                        var poster = Convert.ToString(reader["poster"]);
-                        var awards = Convert.ToString(reader["awards"]);
-                        var plot = Convert.ToString(reader["plot"]);
-
-                        data = new OMBDdata()
-                        {
-                            Id = Id,
-                            UrlToPoster = poster,
-                            Awards = awards,
-                            Plot = plot
-                        };
-                        
-                    }
-                    
-                }
-            }
-            return data;
 
         }
 
@@ -714,6 +477,13 @@ namespace DataServiceLib
             modelBuilder.Entity<BookmarkActors>().ToTable("bookmarks_names").HasNoKey();
             modelBuilder.Entity<BookmarkActors>().Property(x => x.UserName).HasColumnName("username");
             modelBuilder.Entity<BookmarkActors>().Property(x => x.PersonId).HasColumnName("nconst");
+
+            //For OMDBData table
+            modelBuilder.Entity<OMDBData>().ToTable("omdb_data");
+            modelBuilder.Entity<OMDBData>().Property(x => x.Id).HasColumnName("tconst");
+            modelBuilder.Entity<OMDBData>().Property(x => x.UrlToPoster).HasColumnName("poster");
+            modelBuilder.Entity<OMDBData>().Property(x => x.Awards).HasColumnName("awards");
+            modelBuilder.Entity<OMDBData>().Property(x => x.Plot).HasColumnName("plot");
         }
     }
 }

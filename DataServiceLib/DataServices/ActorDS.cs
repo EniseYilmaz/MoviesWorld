@@ -8,7 +8,7 @@ namespace DataServiceLib.DataServices
         private readonly MoviesContext ctx = new MoviesContext();
         public IList<PopularActors> GetPopularActors()
         {
-            return ctx.PopularActors();
+            return ctx.getPopularActors();
         }
 
         public IList<Title_Principals> GetPersonal(string id)
