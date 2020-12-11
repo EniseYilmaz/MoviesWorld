@@ -6,7 +6,7 @@ namespace SubProject.Controllers
 {
     [ApiController]
     [Route("api/actors")]
-    [Authorization]
+    
     public class ActorController : ControllerBase
     {
         IActorDS ds;

@@ -9,11 +9,36 @@
                     <li class="breadcrumb-item"><a href="#">Search</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Search results</li>
                 </ol>
-                <h3>We've found <span data-bind="text: movies().length"></span> search results.</h3>
+
+                <h3 class="search-header">
+                    We've found
+                    <span data-bind="text: resultsize()"></span>
+                    search results.
+                </h3>
+
+                <button class="search-header" data-bind="click: function(){previouspage()}">previous page</button>
+                <span class="search-header" data-bind="text:lastpage() + 1"></span>
+                <span class="search-header"> out of</span>
+                <span class="search-header" data-bind="text: maxpage()"></span>
+                <button class="search-header" data-bind="click: function(){nextpage()}">next page</button>
+
+                <div class="dropdown">
+                    <button class="dropbtn">Dropdown</button>
+                    <div class="dropdown-content">
+                        <a data-bind="click:function(){ changepagesize(5)}">show 5 titles</a>
+                        <a data-bind="click:function(){ changepagesize(10)}">show 10 titles</a>
+                        <a data-bind="click:function(){ changepagesize(25)}">show 25 titles</a> 
+                    </div>
+
+
+                </div>
+
             </nav>
         </div>
     </div>
 
+
+   
     <div class="searchrow">
         <div class="list-group" data-bind="foreach: movies">
             <a href="" class="list-group-item list-group-item-action"

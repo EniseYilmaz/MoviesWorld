@@ -12,21 +12,26 @@
         console.log(params.titleid);
 
         ds.getMovie(params.titleid, function (data) {
+            console.log("getting movie data... ")
             movie(data)
             //waits for movie to get data
             ds.getOMDB(params.titleid, function (data) {
-                OMDB(data)
-                ds.getActorsForMovie(params.titleid, function (data) {
-                    actors(data);
-                    ds.getRating(params.titleid, function (data) {
-                        rating(data)
 
-                        console.log(data);
+                console.log("getting OMDB data... ")
+                OMDB(data)
+                
+                ds.getActorsForMovie(params.titleid, function (data) {
+                    console.log("getting actors... ")
+                    actors(data)
+
+                    ds.getRating(params.titleid, function (data) {
+                        console.log("Getting rating...")
+                        rating(data)
                         ds.getSimilarMovies(movie().originalTitle, function (data) {
                             similarmovies(data)
-                            console.log(data)
+                            console.log("getting similar movies... ")
+                            console.log(similarmovies())
                         });
-
                     });
                 });
             });

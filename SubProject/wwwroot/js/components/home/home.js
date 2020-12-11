@@ -5,10 +5,12 @@ define(['knockout', 'dataservice'], (ko, ds) => {
         let popularMovies = ko.observableArray([]);
 
         ds.getPopularMovies(function (data) {
-            popularMovies(data);
+            popularMovies(data)
+            console.log(popularMovies())
+            
         });
 
-
+        
         return {
             name,
             popularMovies
