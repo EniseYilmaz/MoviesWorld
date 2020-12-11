@@ -1,12 +1,14 @@
+
 .crop {
     width: 200px;
     height: 180px;
     overflow: hidden;
 }
 
+
 .searchrow {
     margin-right: 2%;
-    width: 49%;
+    width: 300px;
     float: left;
 }
 .lightview {

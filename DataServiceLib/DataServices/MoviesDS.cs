@@ -9,7 +9,7 @@ namespace DataServiceLib.DataServices
         private readonly MoviesContext ctx = new MoviesContext();
         public IList<SimilarMovies> SimilarMovies(string movieTitle)
         {
-            return ctx.SimilarMovies(movieTitle);
+            return ctx.getSimilarMovies(movieTitle);
         }
         public TitleBasics GetMovie(string id)
         {
@@ -20,15 +20,15 @@ namespace DataServiceLib.DataServices
             return ctx.titleBasics.Skip(page * pagesize).Take(pagesize).ToList();
         }
 
-        public OMBDdata GetOMBDData(string id)
+        public OMDBData GetOMBDData(string id)
         {
 
-            return ctx.GetOMDBData(id);
+            return ctx.OMDBDatas.Where(m => m.Id == id).FirstOrDefault();
         }
 
         public IList<PopularMovies> GetPopularMovies()
         {
-            return ctx.PopularMovies();
+            return ctx.getPopularMovies();
         }
     }
 }

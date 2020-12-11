@@ -8,19 +8,9 @@ namespace DataServiceLib.DataServices
     public class SearchDS : ISearchDS
     {
         private readonly MoviesContext ctx = new MoviesContext();
-        public IList<StringSearch> Search(string keyword)
+        public IList<StringSearch> Search(string keyword, string userName)
         {
-            return ctx.Search(keyword);
-        }
-
-        public IList<StringSearch> ExactSearch(string firstKeyword, String secondKeyword)
-        {
-            return ctx.ExactSearch(firstKeyword, secondKeyword);
-        }
-
-        public IList<BestSearch> BestSearch(string firstKeyword, String secondKeyword, string thirdKeyword)
-        {
-            return ctx.BestSearch(firstKeyword, secondKeyword, thirdKeyword);
+            return ctx.Search(keyword, userName);
         }
         public IList<SearchHistory>  SearchHistory(string userName)
         {

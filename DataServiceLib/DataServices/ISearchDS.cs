@@ -5,11 +5,7 @@ namespace DataServiceLib.DataServices
 {
     public interface ISearchDS
     {
-        IList<StringSearch> Search(string keyword);
-
-        IList<StringSearch> ExactSearch(string firstKeyword, string secondKeyword);
-
-        IList<BestSearch> BestSearch(string firstKeyword, string secondKeyword, string thirdKeyword);
+        IList<StringSearch> Search(string keyword, string userName);
 
         IList<SearchHistory> SearchHistory(string userName);
     }
