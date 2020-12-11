@@ -9,7 +9,7 @@ namespace DataServiceLib.Models
         public string Id { get; set; }
         public string Title { get; set; }
         public float? Rating { get; set; }
-        public int? NumOfVotes { get; set; }
+        public int? NumVotes { get; set; }
         public string Poster { get; set; }
 
     }

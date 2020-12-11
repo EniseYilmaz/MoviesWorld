@@ -19,7 +19,7 @@
 
 
 
-        ds.search(params.keyword(), function (data) { movies(data) });
+        ds.search(params.keyword(), params.userName(), function (data) { movies(data) });
 
         //debugger;
         
