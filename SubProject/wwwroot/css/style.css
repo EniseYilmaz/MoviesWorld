@@ -1,4 +1,11 @@
 
+.crop {
+    width: 200px;
+    height: 180px;
+    overflow: hidden;
+}
+
+
 .searchrow {
     margin-right: 2%;
     width: 300px;
@@ -8,7 +15,7 @@
     border-bottom-left-radius: 10px;
     position: fixed;
     right: 30px;
-
+    width:300px;
     width: 49%;
     float: left;
 }
@@ -69,3 +76,33 @@
 .dropdown:hover .dropbtn {
     background-color: #f1f1f1;
 }
+/*------home-------*/
+.jumbotron-fluid{
+    padding: 38px !important;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.jumbotron-fluid p{
+    max-width: 60%;
+    margin: 0 auto;
+    text-align: center;
+   
+}
+
+/*----navbar---*/
+.navbar{
+    background-color:#1b1e21 !important;
+}
+.navbar-brand, .nav-link{
+    color: #1c7430 !important;
+}
+.form-control{
+    border-radius: 1.2rem !important;
+    background-color: #1b1e21 !important;
+}
+.nav-link:hover{
+    color: aliceblue !important;
+}
+
+/*------Login-------*/
