@@ -5,7 +5,7 @@ namespace DataServiceLib.DataServices
 {
     public interface ISearchDS
     {
-        IList<StringSearch> Search(string keyword, string userName);
+        SearchReturn Search(string keyword, string userName, int page = 0, int pagesize = 10);
 
         IList<SearchHistory> SearchHistory(string userName);
     }

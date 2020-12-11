@@ -42,7 +42,9 @@
     }
     
     let getSimilarMovies = (titlename, callback) => {
-        fetch('api/movies/similar/${titlename}', {
+        console.log(titlename)
+        console.log("fuck this")
+        fetch(`api/movies/similar/${titlename}`, {
             headers: {
                 'Authorization': getToken()
             }
@@ -98,8 +100,8 @@
 
 
 
-    let search = (keyword, userName, callback) => {
-        fetch('api/search/' + keyword + '/' + userName)
+    let search = (keyword, userName, page, pagesize, callback) => {
+        fetch('api/search/' + keyword + '/' + userName + '?page=' + page + '&pagesize=' + pagesize)
             .then(response => response.json())
             .then(callback);
     }

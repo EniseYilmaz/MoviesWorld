@@ -3,31 +3,86 @@
     return function (params) {
         let name = "Search";
         let movies = ko.observableArray([]);
+        let resultsize = ko.observable();
         let selectedTitle = ko.observable();
-        let info = ko.observable(false);
-        
-        showinfo = function (title) {
-            setTimeout(function () {
-                info(true)
-            }, 500);
-            
-        };
+        let lastkeyword = ko.observable(params.keyword());
+        let lastusername = ko.observable(params.userName());
+        let lastpage = ko.observable(0);
+        let lastpagesize = ko.observable(8);
+        let maxpage = ko.observable();
+        let functionlimiter = ko.observable(true);
+       
 
-        hideinfo = function (title) {
-            info(false);
+        let nextpage = results => {
+            if (functionlimiter() && lastpage() != maxpage()- 1) {
+                functionlimiter(false);
+                console.log(functionlimiter())
+                lastpage(lastpage() + 1);
+                ds.search(lastkeyword(), lastusername(), lastpage(), lastpagesize(), function (data) {
+                    console.log(data)
+                    movies(data.searchResultsList)
+                    resultsize(data.resultSize)
+                });
+                setTimeout(function () {
+                    functionlimiter(true);
+                }, 300);
+            } else {
+                console.log("still waiting...");
+            }
+           
         }
 
+        let previouspage = results => {
+            if (functionlimiter() && lastpage() != 0) {
+                functionlimiter(false);
+                console.log(functionlimiter())
+                lastpage(lastpage() - 1);
+                ds.search(lastkeyword(), lastusername(), lastpage(), lastpagesize(), function (data) {
+                    console.log(data)
+                    movies(data.searchResultsList)
+                    resultsize(data.resultSize)
+                });
+                setTimeout(function () {
+                    functionlimiter(true);
+                }, 300);
+            } else {
+                console.log("limiter : " + functionlimiter());
+                
+            }
+
+        }
+
+        ds.search(params.keyword(), params.userName(), lastpage(), lastpagesize(), function (data) {
+            console.log(data)
+            movies(data.searchResultsList)
+            resultsize(data.resultSize)
+            maxpage(Math.ceil(resultsize() / lastpagesize()))
+            console.log("maxpage : " + maxpage())
+        });
 
 
-        ds.search(params.keyword(), params.userName(), function (data) { movies(data) });
-
-        //debugger;
-        
+        let changepagesize = size => {
+            lastpagesize(size)
+            maxpage(Math.ceil(resultsize() / lastpagesize()))
+            console.log(lastpagesize());
+            ds.search(lastkeyword(), lastusername(), lastpage(), lastpagesize(), function (data) {
+                console.log(data)
+                movies(data.searchResultsList)
+                resultsize(data.resultSize)
+            });
+        }
+       
 
         return {
-            info,
-            showinfo,
-            hideinfo,
+            changepagesize,
+            previouspage,
+            maxpage,
+            resultsize,
+            lastpage,
+            lastpagesize,
+            lastusername,
+            lastkeyword,
+            nextpage,
             selectedTitle,
             movies
         }

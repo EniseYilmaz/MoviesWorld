@@ -12,16 +12,21 @@
 
     let currentParams = ko.observable({});
     let changeContent = (component, titleid) => {
+        if (functionlimiter()) {
+            functionlimiter(false);
         
-        if (component === 'search') {
-            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, keyword: keyword, userName: userName });
-        } else if (component === 'titlescreen'){
-            currentParams({ titleid: titleid, changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
-        }else {
-            currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, setUserName: setUserName });
+            if (component === 'search') {
+                currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, keyword: keyword, userName: userName });
+            } else if (component === 'titlescreen'){
+                currentParams({ titleid: titleid, changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage });
+            }else {
+                currentParams({ changeContent: changeContent, isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn, getAuthStorage: getAuthStorage, setAuthStorage: setAuthStorage, setUserName: setUserName });
+            }
+            selectedComponent(component);
+            setTimeout(function () {
+                functionlimiter(true);
+            }, 100);
         }
-        selectedComponent(component);
-        
     }
 
     let changeQuickComponent = (component, titleid) => {
@@ -37,6 +42,7 @@
         
     }
 
+    
     let setIsLoggedIn = (value) => {
         isLoggedIn(value);
     } 

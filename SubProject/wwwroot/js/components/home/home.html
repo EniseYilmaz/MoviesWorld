@@ -13,7 +13,10 @@
                     </figcaption>
                 </figure>
                     <h5 class="movie_title"  data-bind="text: title"></h5>
-                    <a href="#" class="btn btn-outline-primary">Details</a>
+                    <a href="#" class="btn btn-primary"
+                       data-bind="click: function() { $root.changeContent('titlescreen', id) }">
+                        Details
+                    </a>
                 </a>
        
         </div>

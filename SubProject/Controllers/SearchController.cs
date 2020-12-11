@@ -22,9 +22,9 @@ namespace SubProject.DataServices
 
         
         [HttpGet("{keyword}/{userName}")]
-        public IActionResult SimpleSearch(string keyword, string userName)
+        public IActionResult SimpleSearch(string keyword, string userName, int page = 0, int pagesize = 10)
         {
-            var data = ds.Search(keyword, userName);
+            var data = ds.Search(keyword, userName, page, pagesize);
             return Ok(data.ToJson());
         }
 

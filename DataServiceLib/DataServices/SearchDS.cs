@@ -8,9 +8,18 @@ namespace DataServiceLib.DataServices
     public class SearchDS : ISearchDS
     {
         private readonly MoviesContext ctx = new MoviesContext();
-        public IList<StringSearch> Search(string keyword, string userName)
+        public SearchReturn Search(string keyword, string userName, int page,  int pagesize)
         {
-            return ctx.Search(keyword, userName);
+
+        var temp = ctx.Search(keyword, userName);
+            var searchResults = new SearchReturn()
+            {
+                ResultSize = temp.Count(),
+                SearchResultsList = temp.Skip(page * pagesize).Take(pagesize).ToList()
+
+        };
+
+            return searchResults;
         }
         public IList<SearchHistory>  SearchHistory(string userName)
         {
