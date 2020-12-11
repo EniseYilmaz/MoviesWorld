@@ -464,6 +464,7 @@ namespace DataServiceLib
 
             //For OMDBData table
             modelBuilder.Entity<OMDBData>().ToTable("omdb_data");
+            modelBuilder.Entity<OMDBData>().Property(x => x.Id).HasColumnName("tconst");
             modelBuilder.Entity<OMDBData>().Property(x => x.UrlToPoster).HasColumnName("poster");
             modelBuilder.Entity<OMDBData>().Property(x => x.Awards).HasColumnName("awards");
             modelBuilder.Entity<OMDBData>().Property(x => x.Plot).HasColumnName("plot");
