@@ -62,8 +62,9 @@
 
 
         let changepagesize = size => {
-            lastpagesize(size);
-            console.log(lastpagesize())
+            lastpagesize(size)
+            maxpage(Math.ceil(resultsize() / lastpagesize()))
+            console.log(lastpagesize());
             ds.search(lastkeyword(), lastusername(), lastpage(), lastpagesize(), function (data) {
                 console.log(data)
                 movies(data.searchResultsList)
