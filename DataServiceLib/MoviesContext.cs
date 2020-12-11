@@ -322,28 +322,27 @@ namespace DataServiceLib
         public double GetRating(string id)
         {
 
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandType = CommandType.Text;
-                string table;
-                string idType;
-                if (id[0] == 'n')
-                {
-                    table = "name_ratings";
-                    idType = "Nconst";
-                }
-                else
-                {
-                    table = "title_ratings";
-                    idType = "tconst";
-                }
+                    var command = this.Database.GetDbConnection().CreateCommand();
+                    command.CommandType = CommandType.Text;
+                    string table;
+                    string idType;
+                    if (id[0] == 'n')
+                    {
+                        table = "name_ratings";
+                        idType = "Nconst";
+                    }
+                    else
+                    {
+                        table = "title_ratings";
+                        idType = "tconst";
+                    }
 
-                command.CommandText = $"Select * from {table} where {idType} = '{id}'";
-                if (command.Connection.State == ConnectionState.Closed)
-                    command.Connection.Open();
+                    command.CommandText = $"Select * from {table} where {idType} = '{id}'";
+                    if (command.Connection.State == ConnectionState.Closed)
+                        command.Connection.Open();
 
-                using (var reader = command.ExecuteReader())
-                {
+                    var reader = command.ExecuteReader();
+                
                     reader.Read();
                     if (reader.HasRows)
                     {
@@ -362,27 +361,20 @@ namespace DataServiceLib
                         return rating.AverageRating;
                     }
                     else return 0;
-
-
-                }
-            }
-
-               
         }
 
         public IList<Title_Principals> GetPersonal(string id)
         {
             var personallist = new List<Title_Principals>();
-            using (var command = this.Database.GetDbConnection().CreateCommand())
-            {
+            var command = this.Database.GetDbConnection().CreateCommand();
+            
                 command.CommandType = CommandType.Text;
           
                 command.CommandText = $"Select * from title_principals natural left join name_basics where tconst = '{id}' order by ordering";
                 if (command.Connection.State == ConnectionState.Closed)
                     command.Connection.Open();
 
-                using (var reader = command.ExecuteReader())
-                {
+               var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
 
@@ -401,11 +393,8 @@ namespace DataServiceLib
                             //split string up into list, remove excess chars. 
                             foreach (string xc in new List<string>(characters.Split(',')))
                             {
-
                                 listOfNames.Add(xc.Trim(new Char[] { '\'' }));
-
                             }
-
 
                             var titleprincipal = new Title_Principals()
                             {
@@ -419,12 +408,7 @@ namespace DataServiceLib
                             personallist.Add(titleprincipal);
 
                         }
-                        
-
                     }
-
-                }
-            }
 
             return personallist;
 
