@@ -1,19 +1,22 @@
-
-﻿<div class="container">
+<div class="container">
     <h3 class="p-4">Popular Movies</h3>
     <div class="row" data-bind="foreach: popularMovies">
-        <div class="col-md-4  pt-4" >
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top crop img-thumbnail" style="height:200px" data-bind="attr:{src: poster}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title" style="height: 50px;" data-bind="text: title"></h5>
-                    <p class="card-text">Rating: <span data-bind="text: rating"></span> <br/> Votes: <span data-bind="text: numVotes"></span></p>
-                    <a href="#" class="btn btn-primary" 
-                       data-bind="click: function() { $root.changeContent('titlescreen', id) }">
-                    Details
-                    </a>
-                </div>
-            </div>
+       
+            <div class="movie_card col-md-3 col-sm-4 col-xs-6" >
+                <a>
+                <figure  class="figure">
+                    <img class="movie_poster" data-bind="attr:{src: poster}" alt="Card image cap">
+                    <figcaption class="figure-caption">
+                        <i class="far fa-star"></i> Rating: <p data-bind="text: rating"></p>
+
+                        <i class="fas fa-thumbs-up"></i> Votes: <p data-bind="text: numOfVotes"></p>
+                    </figcaption>
+                </figure>
+                
+                    <h5 class="movie_title"  data-bind="text: title"></h5>
+                    <a href="#" class="btn btn-outline-primary">Details</a>
+                </a>
+       
         </div>
     </div>
 </div>
