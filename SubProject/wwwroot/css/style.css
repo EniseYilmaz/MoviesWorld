@@ -150,3 +150,20 @@ a:hover .figure-caption
 }
 
 /*------Login-------*/
+
+
+.checked_stars{
+    color: orange;
+}
+
+.stars span {
+    font-size: 20px;
+    display: inline-block;
+    position: relative;
+}
+
+    .stars span:hover:before,
+    .stars span:hover ~ span:before {
+        position: absolute;
+        color: orange;
+    }

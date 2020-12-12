@@ -1,11 +1,11 @@
 ﻿define(['knockout', 'dataservice'], (ko, ds) => {
     return function (params) {
 
-        let name = "Home";
+        let name = "Movie";
         let rating = ko.observableArray([]);
         let actors = ko.observableArray([]);
         let movie = ko.observableArray([]);
-        let OMDB = ko.observableArray([]);
+        let OMDB = ko.observableArray();
 
         let similarmovies = ko.observableArray([]);
         

@@ -42,8 +42,6 @@
     }
     
     let getSimilarMovies = (titlename, callback) => {
-        console.log(titlename)
-        console.log("fuck this")
         fetch(`api/movies/similar/${titlename}`, {
             headers: {
                 'Authorization': getToken()
