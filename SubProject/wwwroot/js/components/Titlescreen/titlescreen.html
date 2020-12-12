@@ -1,23 +1,72 @@
-﻿
-<h3 data-bind="text : movie().originalTitle"></h3>
-<ul data-bind="foreach: OMDB">
-    <img data-bind="attr:{src: urlToPoster}">
-    <p data-bind="text: plot"></p>
-</ul>
-<h3>Starring</h3>
-<ul data-bind="foreach: actors">
-    <p data-bind="text: name"> </p>
-    <p> as </p>
-    <li data-bind="text: characters"></li>
-</ul>
+﻿<div class="container">
+        <div class="row">
+            <div class="col pt-4">
+                <h3 data-bind="text : movie().originalTitle"></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <img data-bind="attr:{src: OMDB().urlToPoster}">
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col">
+                        <p data-bind="text: OMDB().plot"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col stars pb-3">
+                        <span class="fa fa-star" id="star_1"></span>
+                        <span class="fa fa-star" id="star_2"></span>
+                        <span class="fa fa-star" id="star_3"></span>
+                        <span class="fa fa-star" id="star_4"></span>
+                        <span class="fa fa-star" id="star_5"></span>
+                        <span class="fa fa-star" id="star_6"></span>
+                        <span class="fa fa-star" id="star_7"></span>
+                        <span class="fa fa-star" id="star_8"></span>
+                        <span class="fa fa-star" id="star_9"></span>
+                        <span class="fa fa-star" id="star_10"></span>
+                    </div>
+                </div>
 
-<div>Similar Titles</div>
-<div class="list-group" data-bind="foreach: similarmovies">
-    
-    <a href="" class="list-group-item list-group-item-action"
-       data-bind="text: title, click: function() { $root.changeContent('titlescreen', id) }">
-    </a>
-</div>
-
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-primary"><i class="fal fa-plus-square"></i> Add to Favorite</button>
+                        <button type="button" class="btn btn-primary"><i class="fal fa-plus-square"></i> Add to Bookmark</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <div class="col">
+                <div class="row">
+                    <h3>Starring</h3>
+                </div>
+                <div class="row">
+                    <div data-bind="foreach: actors">
+                        <span class="badge badge-primary"><span data-bind="text: name"></span> as <span data-bind="text: characters"></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <h3>Similar Movies</h3>
+                </div>
+                <div class="row" data-bind="foreach: similarmovies">
+                    <div class="col-md-3">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" style="height: 476px;" data-bind="visible: poster != 'N/A', attr:{src: poster}">
+                            <img class="card-img-top" data-bind="visible: poster == 'N/A'" src="../../../image/noposter.jpg">
+                            <div class="card-body">
+                                <h5 class="card-title" data-bind="text: title"></h5>
+                                <a class="btn btn-primary" data-bind="click: function() { $root.changeContent('titlescreen', id) }">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+             </div>
+        </div>
 
 
