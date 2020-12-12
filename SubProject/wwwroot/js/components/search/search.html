@@ -5,8 +5,8 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Search</a></li>
+                    <li class="breadcrumb-item"><a >Home</a></li>
+                    <li class="breadcrumb-item"><a >Search</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Search results</li>
                 </ol>
 
@@ -23,31 +23,32 @@
                 <button class="search-header" data-bind="click: function(){nextpage()}">next page</button>
 
                 <div class="dropdown">
-                    <button class="dropbtn">Dropdown</button>
+                    <button class="dropbtn">Page size</button>
                     <div class="dropdown-content">
-                        <a data-bind="click:function(){ changepagesize(5)}">show 5 titles</a>
-                        <a data-bind="click:function(){ changepagesize(10)}">show 10 titles</a>
-                        <a data-bind="click:function(){ changepagesize(25)}">show 25 titles</a> 
+                        <a data-bind="click:function(){ changepagesize(5)}">show 5 movies</a>
+                        <a data-bind="click:function(){ changepagesize(10)}">show 10 movies</a>
+                        <a data-bind="click:function(){ changepagesize(25)}">show 25 movies</a> 
                     </div>
-
-
                 </div>
 
             </nav>
         </div>
     </div>
 
-
-   
-    <div class="searchrow">
-        <div class="list-group" data-bind="foreach: movies">
-            <a href="" class="list-group-item list-group-item-action"
-               data-bind="text: title,
+    <div class="row">
+        <div class="col-md-5">
+            <div class="searchrow">
+                <div class="list-group" data-bind="foreach: movies">
+                    <a href="" class="list-group-item list-group-item-action"
+                       data-bind="text: title,
                click: function() { $root.changeContent('titlescreen', id) },
                event: { mouseover: function() {$root.changeQuickComponent('lightview', id) }  }">
-            </a>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="lightview " data-bind="component: {name: $root.quickComponent, params: $root.quickComponentParams}"></div>
         </div>
     </div>
-    <div class="lightview " data-bind="component: {name: $root.quickComponent, params: $root.quickComponentParams}"></div>
-</div>
 
