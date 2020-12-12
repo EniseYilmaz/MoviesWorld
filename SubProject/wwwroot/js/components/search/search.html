@@ -15,37 +15,44 @@
                     <span data-bind="text: resultsize()"></span>
                     search results.
                 </h3>
-
-                <button class="search-header" data-bind="click: function(){previouspage()}">previous page</button>
-                <span class="search-header" data-bind="text:lastpage() + 1"></span>
-                <span class="search-header"> out of</span>
-                <span class="search-header" data-bind="text: maxpage()"></span>
-                <button class="search-header" data-bind="click: function(){nextpage()}">next page</button>
-
-                <div class="dropdown">
-                    <button class="dropbtn">Page size</button>
-                    <div class="dropdown-content">
-                        <a data-bind="click:function(){ changepagesize(5)}">show 5 movies</a>
-                        <a data-bind="click:function(){ changepagesize(10)}">show 10 movies</a>
-                        <a data-bind="click:function(){ changepagesize(25)}">show 25 movies</a> 
-                    </div>
-                </div>
-
             </nav>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-5">
-            <div class="searchrow">
-                <div class="list-group" data-bind="foreach: movies">
-                    <a href="" class="list-group-item list-group-item-action"
-                       data-bind="text: title,
+            <div class="row">
+                <div class="searchrow">
+                    <div class="list-group" data-bind="foreach: movies">
+                        <a href="" class="list-group-item list-group-item-action"
+                           data-bind="text: title,
                click: function() { $root.changeContent('titlescreen', id) },
                event: { mouseover: function() {$root.changeQuickComponent('lightview', id) }  }">
-                    </a>
+                        </a>
+                    </div>
                 </div>
             </div>
+            <div class="row mt-2">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" data-bind="click: function(){previouspage()}">Previous</a>&nbsp;</li>
+                            <li class="page-item" data-bind="text:lastpage() + 1"> </li>
+                            <li class="page-item">&nbsp; out of &nbsp;</li>
+                            <li class="page-item" data-bind="text: maxpage()">  </li>
+                            <li class="page-item"><a class="page-link" data-bind="click: function(){nextpage()}">Next</a></li>
+                        </ul>
+                    </nav>
+            </div>
+                <div class="row">
+                    <div class="dropdown">
+                        <button class="dropbtn p-2">Change page size</button>
+                        <div class="dropdown-content">
+                            <a data-bind="click:function(){ changepagesize(5)}">show 5 movies</a>
+                            <a data-bind="click:function(){ changepagesize(10)}">show 10 movies</a>
+                            <a data-bind="click:function(){ changepagesize(25)}">show 25 movies</a>
+                        </div>
+                    </div>
+                </div>
         </div>
         <div class="col-md-7">
             <div class="lightview " data-bind="component: {name: $root.quickComponent, params: $root.quickComponentParams}"></div>
