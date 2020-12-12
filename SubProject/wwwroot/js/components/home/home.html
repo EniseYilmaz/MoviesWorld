@@ -3,21 +3,17 @@
     <div class="row" data-bind="foreach: popularMovies">
        
             <div class="movie_card col-md-3 col-sm-4 col-xs-6" >
-                <a>
+                <a data-bind="click: function() { $root.changeContent('titlescreen', id) }">
                 <figure  class="figure">
                     <img class="movie_poster" data-bind="attr:{src: poster}" alt="Card image cap">
                     <figcaption class="figure-caption">
                         <i class="far fa-star"></i> Rating: <p data-bind="text: rating"></p>
 
-                        <i class="fas fa-thumbs-up"></i> Votes: <p data-bind="text: numOfVotes"></p>
+                        <i class="fas fa-thumbs-up"></i> Votes: <p data-bind="text: numVotes"></p>
                     </figcaption>
                 </figure>
                 
                     <h5 class="movie_title"  data-bind="text: title"></h5>
-                    <a href="#" class="btn btn-primary"
-                       data-bind="click: function() { $root.changeContent('titlescreen', id) }">
-                        Details
-                    </a>
                 </a>
        
         </div>
