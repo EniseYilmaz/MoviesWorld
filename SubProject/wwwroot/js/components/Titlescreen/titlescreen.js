@@ -2,9 +2,9 @@
     return function (params) {
 
         let name = "Movie";
-        let rating = ko.observableArray([]);
+        let rating = ko.observableArray();
         let actors = ko.observableArray([]);
-        let movie = ko.observableArray([]);
+        let movie = ko.observableArray();
         let OMDB = ko.observableArray();
 
         let similarmovies = ko.observableArray([]);
@@ -25,8 +25,8 @@
                     actors(data)
 
                     ds.getRating(params.titleid, function (data) {
-                        console.log("Getting rating...")
-                        rating(data)
+                        console.log(Math.round(data))
+                        rating(Math.round(data))
                         ds.getSimilarMovies(movie().originalTitle, function (data) {
                             similarmovies(data)
                             console.log("getting similar movies... ")
