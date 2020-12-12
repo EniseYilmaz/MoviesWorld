@@ -29,7 +29,7 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0" data-bind="submit: search">
-                <input class="form-control mr-sm-2" placeholder="search movies..." minlength="3" type="search" data-bind="value: keyword" aria-label="Search" required>
+                <input class="form-control mr-sm-2 text-white" placeholder="search movies..." minlength="3" type="search" data-bind="value: keyword" aria-label="Search" required>
                
             </form>
             <div data-bind="visible: isLoggedIn()" class="pl-4 ml-2 bg-outline-primary text-white p-2 text-center" style="border-radius: 5px;"><i class="fas fa-user-tie"></i> Hi, <span data-bind="text: userName"></span></div>
@@ -43,12 +43,7 @@
         </div>
     </nav>
 
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">The only movie world you will ever need</h1>
-            <p class="lead">Welcome to the Movie World. This is the place where you keep your favourite movies, actors and directors in your list.</p>
-        </div>
-    </div>
+
 
     <div data-bind="component: {name: selectedComponent, params: currentParams}"></div>
 
