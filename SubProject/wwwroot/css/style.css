@@ -150,11 +150,13 @@ a:hover .figure-caption
 }
 
 /*------Login-------*/
+.login{
+    padding-top: 1rem;
+}
 
-
-
-
-
+.register{
+    padding-top: 1rem ;
+}
 .checked_stars{
     color: orange;
 }
