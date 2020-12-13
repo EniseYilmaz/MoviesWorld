@@ -1,52 +1,39 @@
-﻿
-<div class="modal fade"  id="registerModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+﻿<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4 p-3 ">
+
             <div class="modal-header">
-                <h5 class="modal-title" id="registerModalLongTitle">Enter your details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="exampleModalLongTitle">Enter your details</h5>
             </div>
-            <div class="modal-body">
-                <div class="container">
-               
+            <div data-bind="visible: error() !== ''" class="alert alert-danger">
+                <span data-bind="text: error"> </span>
+            </div>
 
-                            <div data-bind="visible: error() !== ''" class="alert alert-danger">
-                                <span data-bind="text: error"> </span>
-                            </div>
-                            <div data-bind="visible: success() !== ''" class="alert alert-success">
-                                <span data-bind="text: success"> </span>
-                            </div>
-                            <form data-bind="submit: register">
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" data-bind="value: username" class="form-control" id="username" aria-describedby="username" placeholder="Enter Username" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name">Full Name</label>
-                                    <input type="text" data-bind="value: fullname" class="form-control" id="name" aria-describedby="name" placeholder="Enter your full name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" data-bind="value: email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" data-bind="value: password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
-                                </div>
-                       
-                                <div class="modal-footer">
-                                    <input type="submit"  class="btn btn-outline-success" value="Register">
-                                </div>
-                            </form>
-                      
+            <div data-bind="visible: success() !== ''" class="alert alert-success">
+                <span data-bind="text: success"> </span>
+            </div>
+            
+            <form class="register" data-bind="submit: register">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" data-bind="value: username" class="form-control" id="username" aria-describedby="username" placeholder="Enter Username" required>
                 </div>
-            </div>
-
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-tags"></i> Full Name</label>
+                    <input type="text" data-bind="value: fullname" class="form-control" id="name" aria-describedby="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1"><i class="fas fa-at"></i> Email address</label>
+                    <input type="email" data-bind="value: email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1"><i class="fas fa-key"></i> Password</label>
+                    <input type="password" data-bind="value: password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                </div>
+                <div class="modal-footer">
+                <input type="submit" class="btn btn-outline-success" value="Register">
+                </div>
+            </form>
         </div>
     </div>
-</div>
-
-
-
+    </div>
