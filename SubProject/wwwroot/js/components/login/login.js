@@ -26,10 +26,9 @@
                     params.changeContent('home');
                 }
             });
+          
         } 
-
-     
-
+        
         return {
             username, password, error, login
         }
