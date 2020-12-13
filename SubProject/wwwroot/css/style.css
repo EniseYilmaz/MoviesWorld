@@ -143,15 +143,20 @@ a:hover .figure-caption
 }
 .form-control{
     border-radius: 1.2rem !important;
-    background-color: #1b1e21 !important;
+   
 }
 .nav-link:hover{
     color: aliceblue !important;
 }
 
 /*------Login-------*/
+.login{
+    padding-top: 1rem;
+}
 
-
+.register{
+    padding-top: 1rem ;
+}
 .checked_stars{
     color: orange;
 }
