@@ -20,5 +20,9 @@ namespace DataServiceLib.DataServices
         {
             return ctx.favorites.Where(u => u.UserName == username).Skip(page * pagesize).Take(pagesize).ToList();
         }
+        public UsersFavorite isFav(string userName, string movieId)
+        {
+            return ctx.favorites.Where(x => x.UserName == userName && x.MovieId == movieId).FirstOrDefault();
+        }
     }
 }

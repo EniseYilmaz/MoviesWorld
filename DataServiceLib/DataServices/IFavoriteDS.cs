@@ -7,5 +7,6 @@ namespace DataServiceLib.DataServices
         string AddMovieFavorite(string userName, string movieId);
         bool RemoveMovieFavorite(string userName, string movieId);
         IList<UsersFavorite> GetUsersFavorites(string username ,int page, int pagesize);
+        UsersFavorite isFav(string userName, string movieId);
     }
 }

@@ -10,6 +10,7 @@ namespace DataServiceLib.DataServices
         bool RemoveNameBookMark(string userName, string personId);
         IList<BookmarkMovies> GetUsersBookmarksTitles(string username, int page, int pagesize);
         IList<BookmarkActors> GetUsersBookmarksActors(string username, int page, int pagesize);
+        BookmarkMovies isBookmarked(string userName, string movieId);
 
     }
 }
