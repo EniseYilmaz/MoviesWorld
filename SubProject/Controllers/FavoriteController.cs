@@ -10,7 +10,6 @@ namespace SubProject.Controllers
 {
     [ApiController]
     [Route("api/favorites")]
-    [Authorization]
     public class FavoriteController : ControllerBase
     {
         IFavoriteDS ds;

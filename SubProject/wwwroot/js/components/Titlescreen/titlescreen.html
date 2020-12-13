@@ -14,8 +14,23 @@
                         <p data-bind="text: OMDB().plot"></p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col stars pb-3">
+                <div class="row" data-bind="visible: $root.isLoggedIn()">
+                    <div class="col stars mb-1">
+                        <span class="fa fa-star" id="star_1" data-bind="css: { checked_stars: rating() >= 1 }, click: function(){rate(1)}"></span>
+                        <span class="fa fa-star" id="star_2" data-bind="css: { checked_stars: rating() >= 2 }, click: function(){rate(2)}"></span>
+                        <span class="fa fa-star" id="star_3" data-bind="css: { checked_stars: rating() >= 3 }, click: function(){rate(3)}"></span>
+                        <span class="fa fa-star" id="star_4" data-bind="css: { checked_stars: rating() >= 4 }, click: function(){rate(4)}"></span>
+                        <span class="fa fa-star" id="star_5" data-bind="css: { checked_stars: rating() >= 5 }, click: function(){rate(5)}"></span>
+                        <span class="fa fa-star" id="star_6" data-bind="css: { checked_stars: rating() >= 6 }, click: function(){rate(6)}"></span>
+                        <span class="fa fa-star" id="star_7" data-bind="css: { checked_stars: rating() >= 7 }, click: function(){rate(7)}"></span>
+                        <span class="fa fa-star" id="star_8" data-bind="css: { checked_stars: rating() >= 8 }, click: function(){rate(8)}"></span>
+                        <span class="fa fa-star" id="star_9" data-bind="css: { checked_stars: rating() >= 9 }, click: function(){rate(9)}"></span>
+                        <span class="fa fa-star" id="star_10" data-bind="css: { checked_stars: rating() >= 10 }, click: function(){rate(10)}"></span>
+
+                    </div>
+                </div>
+                <div class="row" data-bind="hidden: $root.isLoggedIn()">
+                    <div class="col stars mb-1">
                         <span class="fa fa-star" id="star_1" data-bind="css: { checked_stars: rating() >= 1 }"></span>
                         <span class="fa fa-star" id="star_2" data-bind="css: { checked_stars: rating() >= 2 }"></span>
                         <span class="fa fa-star" id="star_3" data-bind="css: { checked_stars: rating() >= 3 }"></span>
@@ -26,15 +41,22 @@
                         <span class="fa fa-star" id="star_8" data-bind="css: { checked_stars: rating() >= 8 }"></span>
                         <span class="fa fa-star" id="star_9" data-bind="css: { checked_stars: rating() >= 9 }"></span>
                         <span class="fa fa-star" id="star_10" data-bind="css: { checked_stars: rating() >= 10 }"></span>
-                        <br/>
-                        <i>Your rating '6'.</i>
+
+                    </div>
+                </div>
+                <div class="row" data-bind="visible: $root.isLoggedIn()">
+                    <div class="col" data-bind="visible: myRating()">
+                        <i>Your rating <span data-bind="text : myRating()"></span>.</i>
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-2" data-bind="visible: $root.isLoggedIn()">
                     <div class="col">
-                        <button type="button" class="btn btn-primary"><i class="fal fa-plus-square"></i> Add to Favorite</button>
-                        <button type="button" class="btn btn-primary"><i class="fal fa-plus-square"></i> Add to Bookmark</button>
+                        <button type="button" class="btn btn-primary" data-bind="hidden: isFav(), click: function(){addMovieFav()}"><i class="fal fa-plus-square"></i> Add to Favorite</button>
+                        <button type="button" class="btn btn-primary" data-bind="visible: isFav(), click: function(){removeMovieFav()}"><i class="fal fa-plus-square"></i> Remove from Favorite</button>
+
+                        <button type="button" class="btn btn-primary" data-bind="hidden: isBookmark(), click: function(){addMovieBookmark()}"><i class="fal fa-plus-square"></i> Add to Bookmark</button>
+                        <button type="button" class="btn btn-primary" data-bind="visible: isBookmark(), click: function(){removeMovieBookmark()}"><i class="fal fa-plus-square"></i> Remove from Bookmark</button>
                     </div>
                 </div>
             </div>

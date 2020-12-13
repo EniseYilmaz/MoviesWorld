@@ -168,7 +168,7 @@ namespace DataServiceLib
         }
 
         //For add movie to fav
-        public string AddMovieFavorite(string userName, string movieId)
+        public bool AddMovieFavorite(string userName, string movieId)
         {
             var connection = (NpgsqlConnection)this.Database.GetDbConnection();
             if (connection.State != ConnectionState.Open)
@@ -188,7 +188,7 @@ namespace DataServiceLib
 
             var reader = command.ExecuteScalar();
 
-            return reader.ToString();
+            return (bool)reader;
         }
 
         //For remove movie from fav
