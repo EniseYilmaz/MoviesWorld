@@ -144,6 +144,100 @@
     }
 
 
+    let getActivities = (userName, movieId, callback) => {
+        fetch(`api/common/activities/${userName}/${movieId}`, {
+            headers: {
+                'Authorization': getToken()
+            }
+        })
+            .then(response => response.json())
+            .then(callback);
+        return callback;
+
+    }
+
+    let addMovieFav = (userName, movieId, callback) => {
+        fetch(`api/favorites/movie/add/${userName}/${movieId}`, {
+            headers: {
+                'Authorization': getToken()
+            }
+        })
+            .then(response => response.json())
+            .then(callback);
+        return callback;
+
+    }
+
+    let removeMovieFav = (userName, movieId, callback) => {
+        fetch(`api/favorites/movie/remove/${userName}/${movieId}`, {
+            headers: {
+                'Authorization': getToken()
+            }
+        })
+            .then(response => response.json())
+            .then(callback);
+        return callback;
+
+    }
+
+    let addMovieBookmark = (userName, movieId, callback) => {
+        fetch(`api/bookmarks/movie/add/${userName}/${movieId}`, {
+            headers: {
+                'Authorization': getToken()
+            }
+        })
+            .then(response => response.json())
+            .then(callback);
+        return callback;
+    }
+
+    let removeMovieBookmark = (userName, movieId, callback) => {
+        fetch(`api/bookmarks/movie/remove/${userName}/${movieId}`, {
+            headers: {
+                'Authorization': getToken()
+            }
+        })
+            .then(response => response.json())
+            .then(callback);
+        return callback;
+    }
+
+    let rateMovie = (data, callback) => {
+        fetch('api/rating/add/movie', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': getToken()
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(callback);
+    }
+
+    let getFavoriteMovies = (userName, callback) => {
+        fetch(`api/favorites/${userName}`, {
+            headers: {
+                'Authorization': getToken()
+            }
+        })
+            .then(response => response.json())
+            .then(callback);
+        return callback;
+    }
+
+    let getBookmarkedMovies = (userName, callback) => {
+        fetch(`api/bookmarks/titles/${userName}`, {
+            headers: {
+                'Authorization': getToken()
+            }
+        })
+            .then(response => response.json())
+            .then(callback);
+        return callback;
+    }
+
+
     return {
         getSimilarMovies,
         getRating,
@@ -155,7 +249,15 @@
         login,
         checkIfAuthenticated,
         search,
-        getPopularMovies
+        getPopularMovies,
+        getActivities,
+        addMovieFav,
+        removeMovieFav,
+        addMovieBookmark,
+        removeMovieBookmark,
+        rateMovie,
+        getFavoriteMovies,
+        getBookmarkedMovies
     }
         
     

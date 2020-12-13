@@ -54,5 +54,14 @@ namespace SubProject.Controllers
             var dto = _mapper.Map<UserDto>(user);
             return Ok(dto);
         }
+
+        [HttpGet("activities/{userName}/{movieTitle}")]
+        public IActionResult GetActivities(string userName, string movieTitle)
+        {
+            //rating with the movie - bool and number
+            //Bookmark status with movie - bool
+            //Fav status with movie - bool
+            return Ok(true);
+        }
     }
 }

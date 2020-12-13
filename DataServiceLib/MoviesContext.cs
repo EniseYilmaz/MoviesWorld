@@ -28,6 +28,7 @@ namespace DataServiceLib
         public DbSet<PopularActors> PopularActors { get; set; }
         public DbSet<PopularMovies> PopularMovies { get; set; }
         public DbSet<OMDBData> OMDBDatas { get; set; }
+        public DbSet<RatingHistories> ratingHistories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -167,7 +168,7 @@ namespace DataServiceLib
         }
 
         //For add movie to fav
-        public string AddMovieFavorite(string userName, string movieId)
+        public bool AddMovieFavorite(string userName, string movieId)
         {
             var connection = (NpgsqlConnection)this.Database.GetDbConnection();
             if (connection.State != ConnectionState.Open)
@@ -187,7 +188,7 @@ namespace DataServiceLib
 
             var reader = command.ExecuteScalar();
 
-            return reader.ToString();
+            return (bool)reader;
         }
 
         //For remove movie from fav
@@ -484,6 +485,12 @@ namespace DataServiceLib
             modelBuilder.Entity<OMDBData>().Property(x => x.UrlToPoster).HasColumnName("poster");
             modelBuilder.Entity<OMDBData>().Property(x => x.Awards).HasColumnName("awards");
             modelBuilder.Entity<OMDBData>().Property(x => x.Plot).HasColumnName("plot");
+
+            //For RatingHistory
+            modelBuilder.Entity<RatingHistories>().ToTable("rating_history").HasNoKey();
+            modelBuilder.Entity<RatingHistories>().Property(x => x.UserName).HasColumnName("username");
+            modelBuilder.Entity<RatingHistories>().Property(x => x.MovieId).HasColumnName("tconst");
+            modelBuilder.Entity<RatingHistories>().Property(x => x.Rating).HasColumnName("rating");
         }
     }
 }

@@ -9,5 +9,6 @@ namespace DataServiceLib.DataServices
         bool RemoveActorRating(ActorRatingDto actorRatingDto);
         bool RemoveMovieRating(MovieRatingDto movieRaingDto);
         double GetRating(string id);
+        RatingHistories getRatingByUser(string userName, string movieId);
     }
 }
