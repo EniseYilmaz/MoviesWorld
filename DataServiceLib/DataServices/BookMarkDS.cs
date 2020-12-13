@@ -32,5 +32,11 @@ namespace DataServiceLib.DataServices
         {
             return ctx.bookmarkActors.Where(u => u.UserName == username).Skip(page * pagesize).Take(pagesize).ToList();
         }
+
+        public BookmarkMovies isBookmarked(string userName, string movieId)
+        {
+            
+            return ctx.bookmarkMovies.Where(x => x.UserName == userName && x.MovieId == movieId).FirstOrDefault();
+        }
     }
 }

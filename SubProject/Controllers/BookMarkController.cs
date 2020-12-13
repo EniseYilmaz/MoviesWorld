@@ -10,7 +10,6 @@ namespace SubProject.Controllers
 {
     [ApiController]
     [Route("api/bookmarks")]
-    [Authorization]
     public class BookMarkController : ControllerBase
     {
         IBookMarkDS ds;

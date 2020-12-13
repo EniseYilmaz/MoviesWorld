@@ -38,6 +38,16 @@ require(['knockout', 'text'], (ko) => {
         template: { require: "text!components/login/login.html" }
     });
 
+    ko.components.register("favorite", {
+        viewModel: { require: "components/favorite/favorite" },
+        template: { require: "text!components/favorite/favorite.html" }
+    });
+
+    ko.components.register("bookmark", {
+        viewModel: { require: "components/bookmark/bookmark" },
+        template: { require: "text!components/bookmark/bookmark.html" }
+    });
+
 });
 
 
