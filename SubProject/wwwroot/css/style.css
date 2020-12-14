@@ -179,6 +179,7 @@ a:hover .figure-caption
     box-shadow: 5px 10px 25px 1px rgba(0, 0, 0, 0.253) !important;
 }
 
+
 .similar_poster{
     width: 100%;
     height: 200px;
@@ -190,6 +191,7 @@ a:hover .figure-caption
 
 .title_screen{
     padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
 }
 #star{
     font-size:2.5rem;
@@ -198,6 +200,14 @@ a:hover .figure-caption
 #rate{
     font-size:2rem;
 }
+.similar_movies, .starting_head{
+    padding-top: 2.5rem;
+}
+.starting_text{
+    font-style: italic;
+}
+
+/*------favourites-----*/
 .checked_stars{
     color: orange;
 }
