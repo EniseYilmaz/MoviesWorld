@@ -83,7 +83,9 @@
 .movie_card > a:hover
 figure .movie_poster{
     opacity: 0.3;
+   
 }
+
 .figure{
     background-color: #1b1e21 !important;
     position: relative;
@@ -106,6 +108,7 @@ a:hover .figure-caption
     position:relative;
     width:100%;
     text-align:center;
+    
   }
 /*----navbar---*/
 .navbar{
@@ -244,8 +247,6 @@ a:hover .figure-caption
 
 .view_poster{
     height: 390px;
-    padding: 2rem;
-    padding-top: 0rem;
     width: 100%;
     overflow: hidden;
     position: absolute;
@@ -255,4 +256,7 @@ p{
 }
 #rate{
     color: orange;
+}
+.viewdetails{
+    padding-left: 2rem;
 }
