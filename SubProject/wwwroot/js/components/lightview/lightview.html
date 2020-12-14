@@ -4,9 +4,11 @@
             <img class="view_poster"  data-bind="attr:{src: OMDB().urlToPoster}">
     </div>
     <div class="col">
+    <div class="viewdetails">
         <h1 data-bind="text : movie().originalTitle"></h1>
         <i id="rate" data-bind="text: rating"  class="fa fa-star"></i>
         <p data-bind="text: OMDB().plot"></p>
+    </div>
     </div>
 </div>
  
