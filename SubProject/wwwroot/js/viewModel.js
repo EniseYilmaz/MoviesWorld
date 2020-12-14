@@ -81,6 +81,7 @@
     ds.checkIfAuthenticated(function (data) {
         if (data === true) {
             isLoggedIn(data);
+            userName(data.userName);
         } else if (data === undefined) {
             changeContent('login');
         }

@@ -5,35 +5,52 @@ namespace DataServiceLib.DataServices
 {
     public class RatingDS : IRatingDS
     {
-        private readonly MoviesContext ctx = new MoviesContext();
         public bool AddMovieRating(MovieRatingDto movieRaingDto)
         {
-            return ctx.AddMovieRating(movieRaingDto);
+            using (var ctx = new MoviesContext())
+            {
+                return ctx.AddMovieRating(movieRaingDto);
+            }
         }
 
         public bool RemoveMovieRating(MovieRatingDto movieRaingDto)
         {
-            return ctx.RemoveMovieRating(movieRaingDto);
+            using (var ctx = new MoviesContext())
+            {
+                return ctx.RemoveMovieRating(movieRaingDto);
+            }
         }
 
         public bool AddActorRating(ActorRatingDto actorRatingDto)
         {
-            return ctx.AddActorRating(actorRatingDto);
+            using (var ctx = new MoviesContext())
+            {
+                return ctx.AddActorRating(actorRatingDto);
+            }
         }
 
         public bool RemoveActorRating(ActorRatingDto actorRatingDto)
         {
-            return ctx.RemoveActorRating(actorRatingDto);
+            using (var ctx = new MoviesContext())
+            {
+                return ctx.RemoveActorRating(actorRatingDto);
+            }
         }
 
         public double GetRating(string id)
         {
-            return ctx.GetRating(id);
+            using (var ctx = new MoviesContext())
+            {
+                return ctx.GetRating(id);
+            }
         }
 
         public RatingHistories getRatingByUser(string userName, string movieId)
         {
-            return ctx.ratingHistories.Where(x => x.UserName == userName && x.MovieId == movieId).FirstOrDefault();
+            using (var ctx = new MoviesContext())
+            {
+                return ctx.ratingHistories.Where(x => x.UserName == userName && x.MovieId == movieId).FirstOrDefault();
+            }
         }
 
     }
