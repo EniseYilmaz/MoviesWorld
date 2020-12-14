@@ -1,35 +1,5 @@
 
-.crop {
-    width: 200px;
-    height: 180px;
-    overflow: hidden;
-}
 
-
-.searchrow {
-    margin-right: 2%;
-    width: 300px;
-    float: left;
-}
-.lightview {
-    border-bottom-left-radius: 10px;
-    position: fixed;
-    right: 30px;
-    width:300px;
-    width: 49%;
-    float: left;
-}
-
-.search-header {
-    margin-left: 10px;
-    float: left;
-
-}
-.search-header, .p{
-    margin-left: 10px;
-    float: left;
-    font-size: 15px;
-}
 /* Dropdown Button */
 .dropbtn {
     background-color: #4CAF50;
@@ -222,4 +192,67 @@ a:hover .figure-caption
 
 .stars > span:hover ~ span:before {
     color: #c7c5c5;
+}
+
+/*---------Search-------*/
+.crop {
+    width: 200px;
+    height: 180px;
+    overflow: hidden;
+}
+
+
+.searchrow {
+    margin-right: 2%;
+    width: 300px;
+    float: left;
+}
+.list-group-item:hover {
+    background-color: #383d41 !important;
+    color: #ffffff !important;
+}
+.list-group-item{
+    box-shadow: 5px 10px 25px 1px rgba(0, 0, 0, 0.253) !important;
+}
+
+.searchnav{
+    padding-top: 2rem;
+}
+.search-header {
+    margin-left: 10px;
+    float: left;
+
+}
+.search-header, .p{
+    margin-left: 10px;
+    float: left;
+    font-size: 15px;
+}
+.page-item{
+    padding: 6px;
+    cursor: pointer;
+}
+.page-item > i{
+    cursor: pointer;
+}
+.page-item > i:hover{
+    cursor: pointer;
+    box-shadow: 5px 10px 25px 1px rgba(0, 0, 0, 0.253) !important;
+    color:#121416 ;
+    transform: scale(1.1);
+}
+
+.view_poster{
+    height: 390px;
+    padding: 2rem;
+    padding-top: 0rem;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+}
+p{
+    text-align: justify;
+}
+#rate{
+    color: orange;
 }

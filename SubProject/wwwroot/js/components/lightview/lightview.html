@@ -1,13 +1,13 @@
-﻿<!DOCTYPE html>
-<html>
-
-<div id="view">
-    <meta charset="utf-8" />
-    <h3 data-bind="text : movie().originalTitle"> </h3>
-    <h2 data-bind="text: rating"> </h2>
-    <ul data-bind="foreach: OMDB">
-        <img data-bind="attr:{src: urlToPoster}">
-        <p data-bind="text: plot"> </p>
-    </ul>
+﻿
+<div class="row">
+    <div class="col-md-4">
+            <img class="view_poster"  data-bind="attr:{src: OMDB().urlToPoster}">
+    </div>
+    <div class="col">
+        <h1 data-bind="text : movie().originalTitle"></h1>
+        <i id="rate" data-bind="text: rating"  class="fa fa-star"></i>
+        <p data-bind="text: OMDB().plot"></p>
+    </div>
 </div>
-</html >
+ 
+
