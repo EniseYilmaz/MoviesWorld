@@ -4,15 +4,28 @@
         let name = "Favorite";
         let movies = ko.observableArray([]);
 
-        ds.getFavoriteMovies(params.userName(), function (data) {
-            movies(data);
-        });
+        
+
+        let getMovies = () => {
+            ds.getFavoriteMovies(params.userName(), function (data) {
+                movies(data);
+            });
+        }
+
+        let remove = movieId => {
+            ds.removeMovieFav(params.userName(), movieId, function (data) {
+                if (data) {
+                    getMovies();
+                }
+            });
+        }
+
+        getMovies();
        
         return {
             name,
-            movies
+            movies,
+            remove
         }
     }
-    
-
 });
