@@ -1,14 +1,13 @@
-﻿<div class="container">
+﻿<div class="container title_screen">
         <div class="row">
-            <div class="col pt-4">
-                <h3 data-bind="text : movie().originalTitle"></h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <img data-bind="attr:{src: OMDB().urlToPoster}">
             </div>
-            <div class="col-md-8">
+        
+            <div class="col-sm-8">
+                <h1 data-bind="text : movie().originalTitle"></h1>
+                <i id="star" class="fas fa-star"></i>
+                <i id="rate" data-bind="text: rating"></i>
                 <div class="row">
                     <div class="col">
                         <p data-bind="text: OMDB().plot"></p>
@@ -52,11 +51,11 @@
 
                 <div class="row mt-2" data-bind="visible: $root.isLoggedIn()">
                     <div class="col">
-                        <button type="button" class="btn btn-primary" data-bind="hidden: isFav(), click: function(){addMovieFav()}"><i class="fal fa-plus-square"></i> Add to Favorite</button>
-                        <button type="button" class="btn btn-primary" data-bind="visible: isFav(), click: function(){removeMovieFav()}"><i class="fal fa-plus-square"></i> Remove from Favorite</button>
+                        <button type="button" class="btn btn-outline-success" data-bind="hidden: isFav(), click: function(){addMovieFav()}"><i class="fal fa-plus"></i> Add to Favorite</button>
+                        <button type="button" class="btn btn-outline-danger" data-bind="visible: isFav(), click: function(){removeMovieFav()}"><i class="fal fa-minus"></i> Remove from Favorite</button>
 
-                        <button type="button" class="btn btn-primary" data-bind="hidden: isBookmark(), click: function(){addMovieBookmark()}"><i class="fal fa-plus-square"></i> Add to Bookmark</button>
-                        <button type="button" class="btn btn-primary" data-bind="visible: isBookmark(), click: function(){removeMovieBookmark()}"><i class="fal fa-plus-square"></i> Remove from Bookmark</button>
+                        <button type="button" class="btn btn-outline-success" data-bind="hidden: isBookmark(), click: function(){addMovieBookmark()}"><i class="fal fa-plus"></i> Add to Bookmark</button>
+                        <button type="button" class="btn btn-outline-danger" data-bind="visible: isBookmark(), click: function(){removeMovieBookmark()}"><i class="fal fa-minus"></i> Remove from Bookmark</button>
                     </div>
                 </div>
             </div>
@@ -68,29 +67,31 @@
                 </div>
                 <div class="row">
                     <div data-bind="foreach: actors">
-                        <span class="badge badge-primary"><span data-bind="text: name"></span> as <span data-bind="text: characters"></span></span>
+                        <span class="badge badge-outline-primary"><span data-bind="text: name"></span> as <span data-bind="text: characters"></span></span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <div class="row">
-                    <h3>Similar Movies</h3>
+                <div class="row ">
+                    <h4>Similar Movies</h4>
                 </div>
+              
                 <div class="row" data-bind="foreach: similarmovies">
-                    <div class="col-md-3">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" style="height: 476px;" data-bind="visible: poster != 'N/A', attr:{src: poster}">
-                            <img class="card-img-top" data-bind="visible: poster == 'N/A'" src="../../../image/noposter.jpg">
-                            <div class="card-body">
-                                <h5 class="card-title" data-bind="text: title"></h5>
-                                <a class="btn btn-primary" data-bind="click: function() { $root.changeContent('titlescreen', id) }">Details</a>
-                            </div>
-                        </div>
+                    <div class="movie_card col-md-2 col-sm-4 col-xs-6">
+                        <a data-bind="click: function() { $root.changeContent('titlescreen', id) }">
+                            <figure class="figure">
+                                <img class="similar_poster" data-bind="visible: poster != 'N/A', attr:{src: poster}">
+                                <img class="similar_poster" data-bind="visible: poster == 'N/A'" src="../../../image/noposter.jpg">
+                            </figure>
+
+                            <h6 class="similar_title" data-bind="text: title"></h6>
+                        </a>
+
                     </div>
-                 </div>
-             </div>
+                </div>
+            </div>
         </div>
 
 
