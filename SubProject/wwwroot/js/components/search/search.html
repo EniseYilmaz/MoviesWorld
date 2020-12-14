@@ -1,7 +1,5 @@
-
-
-﻿<div class="container">
-    <div class="row">
+<div class="container">
+    <div class="row searchnav">
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -18,9 +16,9 @@
             </nav>
         </div>
     </div>
-
+    <div class="container">
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="row">
                 <div class="searchrow">
                     <div class="list-group" data-bind="foreach: movies">
@@ -35,27 +33,25 @@
             <div class="row mt-2">
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" data-bind="click: function(){previouspage()}">Previous</a>&nbsp;</li>
+                            <li class="page-item"><i data-bind="click: function(){previouspage()}" class="fas fa-step-backward"></i></li>
                             <li class="page-item" data-bind="text:lastpage() + 1"> </li>
-                            <li class="page-item">&nbsp; out of &nbsp;</li>
+                            <li class="page-item">out of </li>
                             <li class="page-item" data-bind="text: maxpage()">  </li>
-                            <li class="page-item"><a class="page-link" data-bind="click: function(){nextpage()}">Next</a></li>
+                            <li class="page-item"><i data-bind="click: function(){nextpage()}" class="fas fa-step-forward"></i></li>
+                            <li class="page-item"><i data-bind="click:function(){ changepagesize(5)}" class="fas fa-forward"> 5</i> </li>
+                            <li class="page-item"><i data-bind="click:function(){ changepagesize(10)}" class="fas fa-forward"> 10</i></li>
+                            <li class="page-item"><i data-bind="click:function(){ changepagesize(25)}" class="fas fa-fast-forward"> 25</i></li>
                         </ul>
                     </nav>
-            </div>
-                <div class="row">
-                    <div class="dropdown">
-                        <button class="dropbtn p-2">Change page size</button>
-                        <div class="dropdown-content">
-                            <a data-bind="click:function(){ changepagesize(5)}">show 5 movies</a>
-                            <a data-bind="click:function(){ changepagesize(10)}">show 10 movies</a>
-                            <a data-bind="click:function(){ changepagesize(25)}">show 25 movies</a>
-                        </div>
-                    </div>
+                <div>
+              
                 </div>
+         
+            </div>
         </div>
-        <div class="col-md-7">
+        <div class="col">
             <div class="lightview " data-bind="component: {name: $root.quickComponent, params: $root.quickComponentParams}"></div>
+        </div>
         </div>
     </div>
 
