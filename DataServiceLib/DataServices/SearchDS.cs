@@ -7,23 +7,27 @@ namespace DataServiceLib.DataServices
 {
     public class SearchDS : ISearchDS
     {
-        private readonly MoviesContext ctx = new MoviesContext();
         public SearchReturn Search(string keyword, string userName, int page,  int pagesize)
         {
-
-        var temp = ctx.Search(keyword, userName);
-            var searchResults = new SearchReturn()
+            using (var ctx = new MoviesContext())
             {
-                ResultSize = temp.Count(),
-                SearchResultsList = temp.Skip(page * pagesize).Take(pagesize).ToList()
+                var temp = ctx.Search(keyword, userName);
+                var searchResults = new SearchReturn()
+                {
+                    ResultSize = temp.Count(),
+                    SearchResultsList = temp.Skip(page * pagesize).Take(pagesize).ToList()
 
-        };
+                };
 
-            return searchResults;
+                return searchResults;
+            }
         }
         public IList<SearchHistory>  SearchHistory(string userName)
         {
-            return ctx.searchHistories.Where(s => s.UserName == userName).ToList();
+            using (var ctx = new MoviesContext())
+            {
+                return ctx.searchHistories.Where(s => s.UserName == userName).ToList();
+            }
         }
     }
 }
