@@ -77,6 +77,9 @@
     background-color: #f1f1f1;
 }
 /*------home-------*/
+.home{
+    padding-top: 2.5rem;
+}
 .jumbotron-fluid{
     padding: 38px !important;
     margin: 0 auto;
@@ -103,7 +106,7 @@
 .img {
     vertical-align: middle;
 }
-.movie_card{
+.movie_card {
     margin-bottom: 25px;
     cursor: pointer;
 }
@@ -148,15 +151,63 @@ a:hover .figure-caption
 .nav-link:hover{
     color: aliceblue !important;
 }
+/*------Footer------*/
+.footer {
+    background: #1b1e21;
+    color: #1c7430;
+    padding: 0.5rem 0;
+}
+.copyright p {
+    border-top: 1px solid hsla(0,0%,100%,.1);
+    text-align: center;
+}
 
 /*------Login-------*/
 .login{
     padding-top: 1rem;
+
 }
 
 .register{
     padding-top: 1rem ;
 }
+
+
+
+/*---------similar Movies-------*/
+.movie_card > a:hover figure .similar_poster {
+    box-shadow: 5px 10px 25px 1px rgba(0, 0, 0, 0.253) !important;
+}
+
+
+.similar_poster{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.similar_title{
+    text-align: center;
+}
+
+.title_screen{
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+}
+#star{
+    font-size:2.5rem;
+    color: orange;
+}
+#rate{
+    font-size:2rem;
+}
+.similar_movies, .starting_head{
+    padding-top: 2.5rem;
+}
+.starting_text{
+    font-style: italic;
+}
+
+/*------favourites-----*/
 .checked_stars{
     color: orange;
 }
