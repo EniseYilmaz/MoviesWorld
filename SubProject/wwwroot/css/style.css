@@ -114,8 +114,18 @@ a:hover .figure-caption
 .navbar{
     background-color:#1b1e21 !important;
 }
-.navbar-brand, .nav-link{
+.navbar-brand, .nav-link, .navbar-toggler-icon >i{
     color: #1c7430 !important;
+}
+
+.navbar-toggler-icon >i{
+    font-size: 28px;
+    border: #1b1e21;
+}
+
+button:focus {
+    outline: none !important;
+    outline: none -webkit-focus-ring-color !important;
 }
 .form-control{
     border-radius: 1.2rem !important;
