@@ -22,7 +22,9 @@
         <div class="container">
         <a class="navbar-brand" data-bind="click: changeContent('home')"><i class="fas fa-globe"></i> Movies World</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon">
+                   <i class="fas fa-bars" ></i>
+            </span>
         </button>
 
 
@@ -40,20 +42,17 @@
                     <a class="nav-link active" data-bind="click: changeContent('bookmark')"><i class="fas fa-bookmark"></i> My Bookmark</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" data-bind="submit: search">
+            <form class="navbar-form navbar-right" data-bind="submit: search">
 
                 <input  class="form-control mr-sm-2 " placeholder="search movies..." minlength="3" type="search" data-bind="value: keyword" aria-label="Search" required>
                
             </form>
-            <div data-bind="visible: isLoggedIn()" class="pl-4 ml-2 bg-outline-primary text-white p-2 text-center" style="border-radius: 5px;"><i class="fas fa-user-tie"></i> Hi, <span data-bind="text: userName"></span></div>
-            <!-- <button type="button" data-bind="click: logout(), visible: isLoggedIn()" class="btn btn-danger ml-2">Logout</button>
-                 <button type="button" data-bind="click: changeContent('login'), hidden: isLoggedIn()" class="btn btn-outline-success ml-2">Login</button>
-                 <button type="button" data-bind="click: changeContent('register'), hidden: isLoggedIn()" class="btn btn-outline-success ml-2">Register</button>
-            -->
-            <a class="nav-link" data-bind="click: logout(), visible: isLoggedIn()"> <i class="fas fa-sign-out-alt"></i> Logout</a>
-            <a class="nav-link" data-bind="click: changeContent('login'), hidden:isLoggedIn()" data-toggle="modal" data-target="#exampleModalCenter" ><i class="fas fa-user"></i> Login</a>
-            <a class="nav-link" data-bind="click: changeContent('register'), hidden:isLoggedIn()" data-toggle="modal" data-target="#registerModalCenter" ><i class="fas fa-user-plus"></i> Register</a>
-        </div>
+            <div data-bind="visible: isLoggedIn()" class=" bg-outline-primary text-white p-2 text-center" style="border-radius: 5px;"><i class="fas fa-user-tie"></i> Hi, <span data-bind="text: userName"></span></div>
+              
+                <a class="nav-link" data-bind="click: logout(), visible: isLoggedIn()"> <i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a class="nav-link" data-bind="click: changeContent('login'), hidden:isLoggedIn()" data-toggle="modal" data-target="#exampleModalCenter" ><i class="fas fa-user"></i> Login</a>
+                <a class="nav-link" data-bind="click: changeContent('register'), hidden:isLoggedIn()" data-toggle="modal" data-target="#registerModalCenter" ><i class="fas fa-user-plus"></i> Register</a>
+            </div>
         </div>
     </nav>
 
