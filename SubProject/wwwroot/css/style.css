@@ -1,4 +1,9 @@
 
+@media(max-width:768px) {
+    .lightview_searh {
+        display: none;
+    }
+}
 
 /* Dropdown Button */
 .dropbtn {
