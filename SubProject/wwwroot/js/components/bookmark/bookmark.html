@@ -15,8 +15,8 @@
     <div class="row mb-3">
         <div class="col">
             <ul class="list-group" data-bind="foreach: movies">
-                <li class="list-group-item d-flex justify-content-between align-items-center" data-bind="click: function() { $root.changeContent('titlescreen', movieId) }">
-                    <div data-bind="text: movie.primaryTitle"></div>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div data-bind="text: movie.primaryTitle, click: function() { $root.changeContent('titlescreen', movieId) }"></div>
                     <button type="button" class="btn btn-danger" data-bind="click: function(){$parent.remove(movieId)}">Remove</button>
                 </li>
             </ul>
